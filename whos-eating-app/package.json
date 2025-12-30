@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:whos-eating-app": "node dist/whos-eating-app/server/server.mjs",
-    "deploy": "ng build --configuration production --base-href 'https://davidbomb.github.io/whos-eating/' && npx angular-cli-ghpages --dir=dist/whos-eating-app/browser"
+    "deploy": "ng build --configuration production --base-href=/whos-eating/ && npx angular-cli-ghpages --dir=dist/whos-eating-app/browser"
   },
   "private": true,
   "dependencies": {

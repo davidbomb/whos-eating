@@ -960,6 +960,7 @@
   .title {
     font-size: 1.4rem;
     letter-spacing: 1px;
+    padding-top: 2.3rem;
   }
 
   /* Emojis du titre adaptés */
@@ -1133,6 +1134,124 @@
   .plate-inner {
     width: 28px;
     height: 28px;
+  }
+}
+
+/* Zone critique 351-400px - Ajustement optimal */
+@media screen and (min-width: 351px) and (max-width: 400px) {
+  .container {
+    padding: 10px;
+  }
+
+  .header {
+    padding: 18px 14px;
+    min-height: 160px;
+  }
+
+  /* Titre bien dimensionné pour cette zone */
+  .title {
+    font-size: 1.3rem;
+    letter-spacing: 1.5px;
+    line-height: 1.4;
+  }
+
+  /* Emojis du titre proportionnels */
+  .title::before,
+  .title::after {
+    font-size: 1.15rem;
+    margin: 0 8px;
+  }
+
+  .date {
+    font-size: 0.9rem;
+    margin-top: 10px;
+  }
+
+  /* Table optimale pour cette largeur */
+  .table-top {
+    max-width: 265px;
+    height: 265px;
+  }
+
+  .counter-number {
+    font-size: 2.8rem;
+  }
+
+  .counter-label {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+  }
+
+  /* Assiettes bien visibles */
+  .plate {
+    width: 42px;
+    height: 42px;
+  }
+
+  .plate-inner {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Grille 2 colonnes avec espacement optimal */
+  .family-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 9px;
+  }
+
+  .member-btn {
+    padding: 13px 11px;
+    font-size: 0.97rem;
+  }
+
+  /* Emojis de statut bien visibles */
+  .member-status {
+    font-size: 1.25rem;
+  }
+
+  .action-btn {
+    padding: 9px 7px;
+    font-size: 0.97rem;
+  }
+
+  /* Icônes participants optimales */
+  .participant-icon {
+    font-size: 1.45rem;
+  }
+
+  .participant-name {
+    font-size: 0.97rem;
+  }
+
+  .participant-label {
+    font-size: 0.78rem;
+  }
+
+  /* Couronne royale visible */
+  .participants-section::before {
+    font-size: 1.6rem;
+    width: 42px;
+    height: 42px;
+    top: -21px;
+  }
+
+  /* Modal bien dimensionné */
+  .modal {
+    padding: 22px 16px;
+    width: 90%;
+  }
+
+  .modal-title {
+    font-size: 1.25rem;
+  }
+
+  /* Décorations médiévales proportionnelles */
+  .torch {
+    font-size: 2.2rem;
+  }
+
+  .banner-flag {
+    font-size: 3.2rem;
   }
 }
 

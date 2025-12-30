@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:whos-eating-app": "node dist/whos-eating-app/server/server.mjs"
+    "serve:ssr:whos-eating-app": "node dist/whos-eating-app/server/server.mjs",
+    "deploy": "ng build --configuration production --base-href 'https://davidbomb.github.io/whos-eating/' && npx angular-cli-ghpages --dir=dist/whos-eating-app/browser"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,7 @@
     "@angular/router": "^19.2.0",
     "@angular/ssr": "^19.2.9",
     "express": "^4.18.2",
+    "firebase": "^12.7.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"

@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { initializeApp } from 'firebase/app';
 import { getDatabase, ref, onValue, set, remove } from 'firebase/database';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -22,33 +23,47 @@ export class DataService {
   private db: any;
   private participantsSubject = new BehaviorSubject<Participant[]>([]);
   public participants$: Observable<Participant[]> = this.participantsSubject.asObservable();
+  private platformId = inject(PLATFORM_ID);
+  private isBrowser: boolean;
 
   constructor() {
-    // Configuration Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyBNORKbQDMjvMmovUWVAIKxmfOAcIpUtLY",
-      authDomain: "whos-eating.firebaseapp.com",
-      databaseURL: "https://whos-eating-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "whos-eating",
-      storageBucket: "whos-eating.firebasestorage.app",
-      messagingSenderId: "1027430586394",
-      appId: "1:1027430586394:web:1f956d00af660575da59a3"
-    };
+    this.isBrowser = isPlatformBrowser(this.platformId);
 
-    try {
-      // Initialiser Firebase
-      const app = initializeApp(firebaseConfig);
-      this.db = getDatabase(app);
-      console.log('✅ Firebase initialisé avec succès');
+    // N'initialiser Firebase que côté navigateur
+    if (this.isBrowser) {
+      // Configuration Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyBNORKbQDMjvMmovUWVAIKxmfOAcIpUtLY",
+        authDomain: "whos-eating.firebaseapp.com",
+        databaseURL: "https://whos-eating-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "whos-eating",
+        storageBucket: "whos-eating.firebasestorage.app",
+        messagingSenderId: "1027430586394",
+        appId: "1:1027430586394:web:1f956d00af660575da59a3"
+      };
 
-      // Écouter les changements en temps réel
-      this.listenToChanges();
-    } catch (error) {
-      console.error('❌ Erreur lors de l\'initialisation Firebase:', error);
+      try {
+        // Initialiser Firebase
+        const app = initializeApp(firebaseConfig);
+        this.db = getDatabase(app);
+        console.log('✅ Firebase initialisé avec succès');
+
+        // Écouter les changements en temps réel
+        this.listenToChanges();
+      } catch (error) {
+        console.error('❌ Erreur lors de l\'initialisation Firebase:', error);
+      }
+    } else {
+      console.log('⚠️ Exécution côté serveur - Firebase non initialisé');
     }
   }
 
   private listenToChanges() {
+    if (!this.isBrowser) {
+      console.log('⚠️ listenToChanges appelé côté serveur - ignoré');
+      return;
+    }
+
     const today = new Date().toDateString();
     const dataRef = ref(this.db, `lunches/${today}`);
 
@@ -71,6 +86,11 @@ export class DataService {
   }
 
   async saveParticipants(participants: Participant[]) {
+    if (!this.isBrowser) {
+      console.log('⚠️ saveParticipants appelé côté serveur - ignoré');
+      return;
+    }
+
     try {
       const today = new Date().toDateString();
       const dataRef = ref(this.db, `lunches/${today}`);
@@ -89,6 +109,11 @@ export class DataService {
   }
 
   async resetDay() {
+    if (!this.isBrowser) {
+      console.log('⚠️ resetDay appelé côté serveur - ignoré');
+      return;
+    }
+
     try {
       const today = new Date().toDateString();
       const dataRef = ref(this.db, `lunches/${today}`);

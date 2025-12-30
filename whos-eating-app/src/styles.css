@@ -1,0 +1,18 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* Styles globaux avec fond rétro */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #fffbeb;
+  font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', cursive, sans-serif;
+  min-height: 100vh;
+}
+
+html, body {
+  height: 100%;
+}

@@ -1,0 +1,80 @@
+<div class="container">
+  <header class="header">
+    <h1 class="title">{{ title }}</h1>
+    <div class="date">{{ getCurrentDate() }}</div>
+  </header>
+
+  <div class="counter-section">
+    <div class="counter-display">
+      <div class="counter-number">{{ totalCount }}</div>
+      <div class="counter-label">convive{{ totalCount > 1 ? 's' : '' }}</div>
+      <div class="counter-emoji">{{ getEmojis() }}</div>
+    </div>
+  </div>
+
+  <div class="add-section">
+    <h2 class="section-title">Qui vient manger ?</h2>
+
+    <div class="family-grid">
+      <button
+        *ngFor="let member of familyMembers"
+        class="member-btn"
+        [class.registered]="hasMemberRegistered(member)"
+        [disabled]="hasMemberRegistered(member)"
+        (click)="addMember(member)">
+        <span class="member-name">{{ member }}</span>
+        <span class="member-status">{{ hasMemberRegistered(member) ? '✓' : '+' }}</span>
+      </button>
+    </div>
+
+    <div class="guest-section" *ngIf="hasAnyRegistered()">
+      <button
+        *ngFor="let member of familyMembers"
+        class="guest-btn"
+        [disabled]="!hasMemberRegistered(member)"
+        (click)="openGuestForm(member)">
+        <span class="guest-icon">👤</span>
+        <span class="guest-text">Invité de {{ member }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="participants-section" *ngIf="participants.length > 0">
+    <h2 class="section-title">Participants ({{ totalCount }})</h2>
+    <div class="participants-list">
+      <div *ngFor="let participant of participants" class="participant-card">
+        <div class="participant-info">
+          <span class="participant-icon">{{ participant.isGuest ? '👤' : '👨‍👩‍👧‍👦' }}</span>
+          <div class="participant-details">
+            <span class="participant-name">{{ participant.name }}</span>
+            <span class="participant-label" *ngIf="participant.isGuest">
+              (invité de {{ participant.addedBy }})
+            </span>
+          </div>
+        </div>
+        <button class="remove-btn" (click)="removeParticipant(participant)">✕</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showGuestForm" (click)="cancelGuestForm()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3 class="modal-title">Invité de {{ selectedMember }}</h3>
+      <input
+        type="text"
+        class="guest-input"
+        [(ngModel)]="guestName"
+        placeholder="Nom de l'invité"
+        (keyup.enter)="addGuest(selectedMember)"
+        autofocus>
+      <div class="modal-buttons">
+        <button class="btn-cancel" (click)="cancelGuestForm()">Annuler</button>
+        <button class="btn-confirm" (click)="addGuest(selectedMember)" [disabled]="!guestName.trim()">Ajouter</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" *ngIf="participants.length > 0">
+    <button class="reset-btn" (click)="resetDay()">🔄 Réinitialiser</button>
+  </footer>
+</div>

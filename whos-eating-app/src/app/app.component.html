@@ -42,9 +42,11 @@
       </div>
     </div>
 
-    <!-- Candélabres -->
-    <div class="candelabra candelabra-left">🕯️</div>
-    <div class="candelabra candelabra-right">🕯️</div>
+    <!-- Candélabre gauche - Easter Egg -->
+    <div class="candelabra candelabra-left"
+         [class.candle-glowing]="easterEggActivated"
+         (click)="toggleEasterEggMusic()"
+         title="🎵 Cliquez pour une surprise...">🕯️</div>
   </div>
 
   <div class="add-section">
@@ -169,6 +171,14 @@
       <span class="foundation-stone">▪️</span>
       <span class="foundation-stone">▪️</span>
       <span class="foundation-stone">▪️</span>
+    </div>
+
+    <!-- Bougie droite décorative avec easter egg -->
+    <div
+      class="candle-decoration candle-decoration-right"
+      [class.candle-glowing]="easterEggActivated"
+      (click)="toggleEasterEggMusic()">
+      🕯️
     </div>
   </div>
 </div>

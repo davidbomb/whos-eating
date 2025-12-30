@@ -1457,6 +1457,7 @@
 
 .candelabra-left {
   left: 15px;
+  cursor: pointer;
 }
 
 .candelabra-right {
@@ -1586,12 +1587,14 @@
   padding: 30px 0;
   text-align: center;
   border-top: 5px double var(--medieval-gold);
+  position: relative;
 }
 
 .castle-foundation {
   display: flex;
   justify-content: center;
   gap: 20px;
+  padding-bottom: 50px;
 }
 
 .foundation-stone {
@@ -1599,45 +1602,182 @@
   color: var(--medieval-stone);
 }
 
-/* === AMÉLIORATIONS CARTES PARTICIPANTS === */
-.participant-card {
-  position: relative;
-  overflow: visible;
-}
-
-.participant-card::before {
-  content: '◆';
+/* === 🎵 EASTER EGG MUSICAL - BOUGIE GAUCHE === */
+.candle-easter-egg {
   position: absolute;
-  left: -12px;
-  top: 50%;
-  transform: translateY(-50%);
-  color: var(--medieval-gold);
-  font-size: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  bottom: 60px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 100;
 }
 
-/* === RESPONSIVE DÉCORATIONS === */
+.candle-easter-egg-left {
+  left: 20px;
+}
+
+.candle-easter-egg:hover .candle-lever {
+  transform: scale(1.2);
+  filter: drop-shadow(0 0 15px rgba(255, 200, 0, 0.8));
+}
+
+.candle-lever {
+  font-size: 2.5rem;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+/* Animation de descente quand activé */
+.candle-easter-egg.activated .candle-lever {
+  transform: translateY(15px) rotate(-10deg);
+  animation: leverPull 0.6s ease-out;
+  filter: drop-shadow(0 0 20px rgba(255, 140, 0, 1));
+}
+
+@keyframes leverPull {
+  0% { transform: translateY(0) rotate(0deg); }
+  30% { transform: translateY(20px) rotate(-15deg); }
+  50% { transform: translateY(18px) rotate(-12deg); }
+  70% { transform: translateY(16px) rotate(-11deg); }
+  100% { transform: translateY(15px) rotate(-10deg); }
+}
+
+/* Mécanisme avec notes de musique */
+.candle-mechanism {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  animation: mechanismActivate 0.5s ease-out;
+}
+
+@keyframes mechanismActivate {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0) scale(1);
+  }
+}
+
+.candle-mechanism .note {
+  font-size: 2.5rem;
+  animation: floatNote 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.8));
+}
+
+.candle-mechanism .note:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.candle-mechanism .note:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.candle-mechanism .note:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+@keyframes floatNote {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(-10px) rotate(5deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-5px) rotate(-5deg);
+    opacity: 1;
+  }
+  75% {
+    transform: translateY(-8px) rotate(3deg);
+    opacity: 0.9;
+  }
+}
+
+/* Bougie droite décorative */
+.candle-decoration {
+  position: absolute;
+  bottom: 8px;
+  font-size: 3rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  animation: candleFlicker 3s ease-in-out infinite;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* Amélioration de la zone de clic */
+  padding: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.candle-decoration:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 6px 16px rgba(255, 200, 0, 0.6));
+}
+
+.candle-decoration-right {
+  right: 20px;
+}
+
+/* Effet lumineux quand l'easter egg est activé */
+.candle-glowing {
+  animation: candleGlowing 1s ease-in-out infinite, candleFlicker 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(255, 200, 0, 0.9))
+          drop-shadow(0 0 40px rgba(255, 150, 0, 0.7)) !important;
+}
+
+@keyframes candleFlicker {
+  0%, 100% {
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) brightness(1);
+  }
+  50% {
+    filter: drop-shadow(0 4px 12px rgba(255, 200, 0, 0.5)) brightness(1.1);
+  }
+}
+
+@keyframes candleGlowing {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+/* Responsive pour petits écrans */
 @media screen and (max-width: 500px) {
-  .torch {
+  .candle-easter-egg-left {
+    left: 10px;
+  }
+
+  .candle-decoration-right {
+    right: 5px;
+    bottom: 30px;
+  }
+
+  .candle-lever,
+  .candle-decoration {
     font-size: 2rem;
   }
 
-  .banner-flag {
-    font-size: 3rem;
+  .candle-mechanism .note {
+    font-size: 1.7rem;
   }
 
-  .feast-banner,
-  .candelabra,
-  .royal-crown {
-    font-size: 2rem;
-  }
-
-  .herald-left,
-  .herald-right {
-    font-size: 1.8rem;
-  }
-
-  .trumpet {
-    font-size: 1.8rem;
+  /* Ajuster aussi le candélabre gauche */
+  .candelabra-left {
+    bottom: 40px;
   }
 }

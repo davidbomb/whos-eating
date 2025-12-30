@@ -1,80 +1,161 @@
-/* Design rétro avec couleurs vives */
+/* 🏰⚔️ DESIGN MÉDIÉVAL COMIQUE ET EXAGÉRÉ ⚔️🏰 */
 :host {
-  --retro-orange: #ff6b35;
-  --retro-yellow: #f7b801;
-  --retro-pink: #ff006e;
-  --retro-blue: #8338ec;
-  --retro-green: #06ffa5;
-  --retro-cream: #fffbeb;
-  --retro-brown: #3d2314;
-  --retro-light: #fff8e7;
-  --shadow: 4px 4px 0px rgba(0, 0, 0, 0.25);
+  /* Palette de couleurs médiévales */
+  --medieval-gold: #d4af37;
+  --medieval-red: #8b0000;
+  --medieval-purple: #4b0082;
+  --medieval-green: #2d5016;
+  --medieval-brown: #3d2817;
+  --medieval-stone: #8b8680;
+  --parchment: #f4e4c1;
+  --parchment-dark: #d4c5a0;
+  --royal-blue: #002366;
+  --blood-red: #8b0000;
+  --dragon-fire: #ff4500;
+  --castle-shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
 }
 
 .container {
-  max-width: 600px;
+  max-width: 650px;
   margin: 0 auto;
-  padding: 15px;
+  padding: 20px;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
 }
 
+/* 🏰 BANNIÈRE ROYALE 🏰 */
 .header {
   text-align: center;
-  margin-bottom: 15px;
-  padding: 15px;
-  background: var(--retro-yellow);
-  border: 3px solid var(--retro-brown);
-  border-radius: 15px;
-  box-shadow: var(--shadow);
-  transform: rotate(-1deg);
+  margin-bottom: 20px;
+  padding: 25px 20px;
+  background: linear-gradient(135deg, var(--medieval-red) 0%, #b30000 50%, var(--medieval-red) 100%);
+  border: 6px solid var(--medieval-gold);
+  border-radius: 0;
+  box-shadow:
+    var(--castle-shadow),
+    inset 0 0 30px rgba(0, 0, 0, 0.3),
+    0 0 0 2px var(--medieval-brown);
+  position: relative;
+  transform: perspective(400px) rotateX(2deg);
+}
+
+/* Motif héraldique sur la bannière */
+.header::before {
+  content: '⚔️';
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  background: var(--medieval-gold);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--medieval-brown);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* Drapeaux décoratifs */
+.header::after {
+  content: '🏰';
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5rem;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .title {
-  font-size: 1.6rem;
+  font-size: 2rem;
   margin: 0;
-  color: var(--retro-brown);
-  text-shadow: 2px 2px 0px var(--retro-orange);
+  color: var(--medieval-gold);
+  text-shadow:
+    3px 3px 0px var(--medieval-brown),
+    0 0 20px rgba(212, 175, 55, 0.8),
+    0 0 30px rgba(255, 215, 0, 0.5);
   font-weight: bold;
-  line-height: 1.2;
+  line-height: 1.3;
+  font-family: 'UnifrakturMaguntia', 'MedievalSharp', serif;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
 .date {
-  font-size: 0.85rem;
-  color: var(--retro-brown);
-  margin-top: 5px;
+  font-size: 1rem;
+  color: var(--parchment);
+  margin-top: 8px;
   font-weight: 600;
   text-transform: capitalize;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  font-style: italic;
 }
 
+/* 🍗 SECTION COMPTEUR - TABLE DE BANQUET 🍗 */
 .counter-section {
-  padding: 20px;
-  margin-bottom: 15px;
+  padding: 25px;
+  margin-bottom: 20px;
+  background: var(--parchment);
+  border: 5px solid var(--medieval-brown);
+  box-shadow:
+    var(--castle-shadow),
+    inset 0 0 20px rgba(139, 69, 19, 0.1);
+  position: relative;
+}
+
+/* Coins décoratifs */
+.counter-section::before,
+.counter-section::after {
+  content: '✦';
+  position: absolute;
+  font-size: 2rem;
+  color: var(--medieval-gold);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.counter-section::before {
+  top: -10px;
+  left: -10px;
+}
+
+.counter-section::after {
+  bottom: -10px;
+  right: -10px;
 }
 
 .table-container {
-  perspective: 800px;
+  perspective: 1000px;
 }
 
 .table-top {
   position: relative;
   width: 100%;
-  max-width: 350px;
-  height: 350px;
+  max-width: 380px;
+  height: 380px;
   margin: 0 auto;
-  background: linear-gradient(135deg, #8b4513 0%, #a0522d 50%, #8b4513 100%);
+  /* Table en bois de chêne massif avec coins en métal */
+  background:
+    linear-gradient(135deg, #654321 0%, #8b6914 25%, #654321 50%, #8b6914 75%, #654321 100%);
+  border: 12px solid var(--medieval-brown);
   border-radius: 50%;
-  border: 8px solid var(--retro-brown);
   box-shadow:
-    0 10px 30px rgba(0, 0, 0, 0.3),
-    inset 0 0 40px rgba(0, 0, 0, 0.2),
-    inset 0 0 80px rgba(139, 69, 19, 0.3);
+    0 15px 40px rgba(0, 0, 0, 0.5),
+    inset 0 0 60px rgba(0, 0, 0, 0.3),
+    inset 0 0 100px rgba(139, 69, 19, 0.4),
+    0 0 0 4px var(--medieval-gold);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transform: rotateX(25deg);
+  transform: rotateX(30deg);
+  position: relative;
 }
 
+/* Texture bois avec veines prononcées */
 .table-wood-grain {
   position: absolute;
   top: 0;
@@ -86,37 +167,76 @@
     repeating-linear-gradient(
       90deg,
       transparent,
-      transparent 10px,
-      rgba(0, 0, 0, 0.03) 10px,
-      rgba(0, 0, 0, 0.03) 20px
+      transparent 8px,
+      rgba(0, 0, 0, 0.1) 8px,
+      rgba(0, 0, 0, 0.1) 12px
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 20px,
+      rgba(101, 67, 33, 0.05) 20px,
+      rgba(101, 67, 33, 0.05) 40px
     );
   pointer-events: none;
 }
 
+/* Ornements médiévaux sur la table */
+.table-top::before {
+  content: '⚜️';
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2rem;
+  opacity: 0.3;
+  z-index: 1;
+}
+
 .counter-number {
-  font-size: 3.5rem;
+  font-size: 4.5rem;
   font-weight: 900;
-  color: var(--retro-yellow);
+  color: var(--medieval-gold);
   text-shadow:
-    3px 3px 0px var(--retro-brown),
-    0 0 20px rgba(247, 184, 1, 0.5);
+    4px 4px 0px var(--medieval-brown),
+    0 0 30px rgba(212, 175, 55, 0.8),
+    0 0 50px rgba(255, 215, 0, 0.6);
   line-height: 1;
   z-index: 10;
   position: relative;
+  font-family: 'UnifrakturMaguntia', serif;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow:
+      4px 4px 0px var(--medieval-brown),
+      0 0 30px rgba(212, 175, 55, 0.8),
+      0 0 50px rgba(255, 215, 0, 0.6);
+  }
+  to {
+    text-shadow:
+      4px 4px 0px var(--medieval-brown),
+      0 0 40px rgba(212, 175, 55, 1),
+      0 0 70px rgba(255, 215, 0, 0.8);
+  }
 }
 
 .counter-label {
-  font-size: 1rem;
-  color: var(--retro-cream);
-  margin-top: 5px;
+  font-size: 1.1rem;
+  color: var(--parchment);
+  margin-top: 8px;
   font-weight: bold;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   z-index: 10;
   position: relative;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+  font-family: 'MedievalSharp', serif;
 }
 
+/* 🍽️ ASSIETTES EN ÉTAIN 🍽️ */
 .plates-container {
   position: absolute;
   top: 0;
@@ -128,15 +248,17 @@
 
 .plate {
   position: absolute;
-  width: 50px;
-  height: 50px;
+  width: 55px;
+  height: 55px;
   border-radius: 50%;
-  background: white;
-  border: 3px solid var(--retro-brown);
+  background:
+    radial-gradient(circle at 30% 30%, #e8e8e8, #a9a9a9);
+  border: 4px solid var(--medieval-brown);
   box-shadow:
-    0 4px 8px rgba(0, 0, 0, 0.2),
-    inset 0 0 10px rgba(0, 0, 0, 0.1);
-  animation: plateAppear 0.5s ease-out;
+    0 6px 12px rgba(0, 0, 0, 0.4),
+    inset 0 0 15px rgba(0, 0, 0, 0.2),
+    inset 0 2px 4px rgba(255, 255, 255, 0.5);
+  animation: plateAppear 0.6s ease-out;
 }
 
 .plate-inner {
@@ -144,15 +266,16 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 35px;
-  height: 35px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  border: 2px solid #e0e0e0;
+  border: 3px solid #808080;
+  background: radial-gradient(circle at 40% 40%, #d3d3d3, #999999);
 }
 
 @keyframes plateAppear {
   from {
-    transform: translate(-50%, -50%) scale(0) rotate(180deg);
+    transform: translate(-50%, -50%) scale(0) rotate(360deg);
     opacity: 0;
   }
   to {
@@ -161,23 +284,52 @@
   }
 }
 
+/* 📜 SECTION D'AJOUT - PARCHEMIN 📜 */
 .add-section {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
+  background: var(--parchment);
+  padding: 20px;
+  border: 5px double var(--medieval-brown);
+  box-shadow: var(--castle-shadow);
+  position: relative;
+}
+
+/* Sceaux de cire décoratifs */
+.add-section::before {
+  content: '🔱';
+  position: absolute;
+  top: -15px;
+  left: 20px;
+  font-size: 1.8rem;
+  background: var(--blood-red);
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--medieval-brown);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .section-title {
-  font-size: 1.3rem;
-  margin-bottom: 12px;
-  color: var(--retro-brown);
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: var(--medieval-red);
   text-align: center;
   font-weight: bold;
-  text-shadow: 2px 2px 0px var(--retro-yellow);
+  text-shadow:
+    2px 2px 0px var(--medieval-gold),
+    3px 3px 6px rgba(0, 0, 0, 0.3);
+  font-family: 'MedievalSharp', serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .family-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
+  gap: 12px;
   margin-bottom: 15px;
 }
 
@@ -185,127 +337,228 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
+/* 🛡️ BOUTONS MEMBRES - BOUCLIERS HÉRALDIQUES 🛡️ */
 .member-btn {
-  background: var(--retro-blue);
-  color: white;
-  border: 3px solid var(--retro-brown);
-  border-radius: 12px;
-  padding: 15px 12px;
-  font-size: 1rem;
+  background: linear-gradient(135deg, var(--royal-blue) 0%, #003d99 100%);
+  color: var(--medieval-gold);
+  border: 5px solid var(--medieval-gold);
+  border-radius: 8px;
+  padding: 18px 14px;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow);
-  font-family: 'Comic Sans MS', cursive;
+  transition: all 0.3s ease;
+  box-shadow:
+    var(--castle-shadow),
+    inset 0 0 20px rgba(0, 0, 0, 0.3);
+  font-family: 'MedievalSharp', serif;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Effet d'armure brillante */
+.member-btn::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+  100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
 }
 
 .member-btn:hover:not(:disabled) {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  transform: translate(-3px, -3px) scale(1.02);
+  box-shadow:
+    8px 8px 0px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.2),
+    0 0 20px rgba(212, 175, 55, 0.5);
+  border-color: #ffd700;
 }
 
 .member-btn:active:not(:disabled) {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.4);
 }
 
 .member-btn.registered {
-  background: var(--retro-green);
-  color: var(--retro-brown);
+  background: linear-gradient(135deg, var(--medieval-green) 0%, #3d6b28 100%);
+  color: var(--medieval-gold);
   cursor: default;
+  border-color: var(--medieval-gold);
+}
+
+.member-btn.registered::after {
+  content: '✓';
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--medieval-gold);
+  color: var(--medieval-green);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border: 3px solid var(--medieval-brown);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
 }
 
 .member-status {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+/* ⚔️ BOUTONS D'ACTION - ARMES MÉDIÉVALES ⚔️ */
 .member-actions {
   display: flex;
-  gap: 6px;
+  gap: 8px;
 }
 
 .action-btn {
   flex: 1;
-  border: 2px solid var(--retro-brown);
-  border-radius: 8px;
-  padding: 8px 6px;
-  font-size: 1rem;
+  border: 4px solid var(--medieval-brown);
+  border-radius: 6px;
+  padding: 10px 8px;
+  font-size: 1.1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
-  font-family: 'Comic Sans MS', cursive;
+  transition: all 0.3s ease;
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
+  font-family: 'MedievalSharp', serif;
+  position: relative;
 }
 
 .action-btn:hover {
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.35);
 }
 
 .action-btn:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.2);
 }
 
 .guest-add-btn {
-  background: var(--retro-orange);
+  background: linear-gradient(135deg, var(--dragon-fire) 0%, #cc3700 100%);
   color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .guest-add-btn:hover {
-  background: #ff7c4a;
+  background: linear-gradient(135deg, #ff5722 0%, #ff4500 100%);
+  box-shadow:
+    5px 5px 0px rgba(0, 0, 0, 0.35),
+    0 0 15px rgba(255, 69, 0, 0.6);
 }
 
 .member-remove-btn {
-  background: var(--retro-pink);
-  color: white;
+  background: linear-gradient(135deg, var(--blood-red) 0%, #660000 100%);
+  color: var(--medieval-gold);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .member-remove-btn:hover {
-  background: #ff1a7e;
+  background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+  box-shadow:
+    5px 5px 0px rgba(0, 0, 0, 0.35),
+    0 0 15px rgba(139, 0, 0, 0.6);
 }
 
+/* 📜 LISTE DES PARTICIPANTS - REGISTRE ROYAL 📜 */
 .participants-section {
-  margin-top: 15px;
+  margin-top: 20px;
+  background: var(--parchment-dark);
+  padding: 20px;
+  border: 5px double var(--medieval-brown);
+  box-shadow: var(--castle-shadow);
+  position: relative;
+}
+
+.participants-section::before {
+  content: '👑';
+  position: absolute;
+  top: -18px;
+  right: 20px;
+  font-size: 2rem;
+  background: var(--medieval-gold);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4px solid var(--medieval-brown);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 .participants-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .participant-card {
-  background: white;
-  padding: 12px;
-  border-radius: 10px;
-  border: 3px solid var(--retro-brown);
+  background: linear-gradient(135deg, #fff8e7 0%, var(--parchment) 100%);
+  padding: 14px;
+  border: 4px solid var(--medieval-brown);
+  border-left: 8px solid var(--medieval-gold);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.15);
-  transition: transform 0.2s ease;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  position: relative;
 }
 
 .participant-card:hover {
-  transform: translateX(5px);
+  transform: translateX(8px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Sceau de cire miniature */
+.participant-card::before {
+  content: '◆';
+  position: absolute;
+  left: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--medieval-gold);
+  font-size: 1.2rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .participant-info {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
 .participant-icon {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3));
 }
 
 .participant-details {
@@ -315,51 +568,61 @@
 
 .participant-name {
   font-weight: bold;
-  color: var(--retro-brown);
-  font-size: 1rem;
+  color: var(--medieval-brown);
+  font-size: 1.1rem;
+  font-family: 'MedievalSharp', serif;
+  text-shadow: 1px 1px 2px rgba(212, 175, 55, 0.3);
 }
 
 .participant-label {
-  font-size: 0.75rem;
+  font-size: 0.85rem;
   color: #666;
   font-style: italic;
+  font-family: 'MedievalSharp', serif;
 }
 
+/* ❌ BOUTON RETIRER - ÉPÉE 🗡️ */
 .remove-btn {
-  background: var(--retro-pink);
-  border: 2px solid var(--retro-brown);
-  color: white;
-  font-size: 1.2rem;
+  background: linear-gradient(135deg, var(--blood-red) 0%, #660000 100%);
+  border: 3px solid var(--medieval-brown);
+  color: var(--medieval-gold);
+  font-size: 1.4rem;
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   font-weight: bold;
   flex-shrink: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .remove-btn:hover {
-  background: #d90058;
-  transform: rotate(90deg);
+  background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+  transform: rotate(90deg) scale(1.1);
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.4),
+    0 0 20px rgba(139, 0, 0, 0.6);
 }
 
+/* 🏰 MODAL - SALLE DU TRÔNE 🏰 */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(61, 35, 20, 0.8);
+  background: rgba(61, 40, 23, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
-  animation: fadeIn 0.3s ease;
-  padding: 15px;
+  animation: fadeIn 0.4s ease;
+  padding: 20px;
 }
 
 @keyframes fadeIn {
@@ -368,194 +631,241 @@
 }
 
 .modal {
-  background: var(--retro-cream);
-  padding: 20px;
-  border-radius: 15px;
-  border: 4px solid var(--retro-brown);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  background: var(--parchment);
+  padding: 30px;
+  border: 8px double var(--medieval-brown);
+  box-shadow:
+    0 15px 60px rgba(0, 0, 0, 0.6),
+    inset 0 0 40px rgba(139, 69, 19, 0.1);
   width: 100%;
-  max-width: 350px;
+  max-width: 400px;
   position: relative;
-  animation: slideDown 0.3s ease;
+  animation: slideDown 0.4s ease;
+}
+
+/* Sceaux royaux sur le modal */
+.modal::before,
+.modal::after {
+  content: '🔱';
+  position: absolute;
+  font-size: 2rem;
+  top: -20px;
+}
+
+.modal::before {
+  left: 20px;
+}
+
+.modal::after {
+  right: 20px;
 }
 
 @keyframes slideDown {
   from {
-    transform: translateY(-50px);
+    transform: translateY(-100px) scale(0.8);
     opacity: 0;
   }
   to {
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
     opacity: 1;
   }
 }
 
 .modal-title {
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  color: var(--retro-brown);
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: var(--medieval-red);
   text-align: center;
   font-weight: bold;
+  font-family: 'MedievalSharp', serif;
+  text-shadow: 2px 2px 0px var(--medieval-gold);
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .guest-input {
   width: 100%;
-  padding: 12px;
-  border: 3px solid var(--retro-brown);
-  border-radius: 10px;
-  font-size: 1rem;
-  margin-bottom: 15px;
-  font-family: 'Comic Sans MS', cursive;
-  background: white;
+  padding: 14px;
+  border: 4px solid var(--medieval-brown);
+  border-radius: 6px;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  font-family: 'MedievalSharp', serif;
+  background: #fff8e7;
   box-sizing: border-box;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .guest-input:focus {
   outline: none;
-  border-color: var(--retro-blue);
-  box-shadow: 0 0 0 3px rgba(131, 56, 236, 0.2);
+  border-color: var(--medieval-gold);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.2),
+    0 0 0 4px rgba(212, 175, 55, 0.3);
 }
 
 .modal-buttons {
   display: flex;
-  gap: 10px;
+  gap: 12px;
 }
 
 .btn-cancel,
 .btn-confirm {
   flex: 1;
-  padding: 12px;
-  border: 3px solid var(--retro-brown);
-  border-radius: 10px;
-  font-size: 0.95rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
-  font-family: 'Comic Sans MS', cursive;
-}
-
-.btn-cancel {
-  background: #cccccc;
-  color: var(--retro-brown);
-}
-
-.btn-cancel:hover {
-  background: #bbbbbb;
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.25);
-}
-
-.btn-confirm {
-  background: var(--retro-green);
-  color: var(--retro-brown);
-}
-
-.btn-confirm:hover:not(:disabled) {
-  background: #05e094;
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.25);
-}
-
-.btn-confirm:disabled {
-  background: #cccccc;
-  color: #888888;
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.footer {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.reset-btn {
-  background: var(--retro-pink);
-  color: white;
-  border: 3px solid var(--retro-brown);
-  border-radius: 12px;
-  padding: 12px 25px;
+  padding: 14px;
+  border: 4px solid var(--medieval-brown);
+  border-radius: 6px;
   font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow);
-  font-family: 'Comic Sans MS', cursive;
+  transition: all 0.3s ease;
+  box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.3);
+  font-family: 'MedievalSharp', serif;
+  text-transform: uppercase;
+}
+
+.btn-cancel {
+  background: linear-gradient(135deg, #8b8680 0%, #6b6660 100%);
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(135deg, #7b7670 0%, #5b5650 100%);
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.35);
+}
+
+.btn-confirm {
+  background: linear-gradient(135deg, var(--medieval-gold) 0%, #c9a227 100%);
+  color: var(--medieval-brown);
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+.btn-confirm:hover:not(:disabled) {
+  background: linear-gradient(135deg, #ffd700 0%, var(--medieval-gold) 100%);
+  transform: translate(-2px, -2px);
+  box-shadow:
+    6px 6px 0px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(212, 175, 55, 0.6);
+}
+
+.btn-confirm:disabled {
+  background: linear-gradient(135deg, #aaa 0%, #888 100%);
+  color: #555;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 🔄 FOOTER - BANNIÈRE DE RÉINITIALISATION 🔄 */
+.footer {
+  margin-top: 25px;
+  text-align: center;
+  padding: 15px;
+}
+
+.reset-btn {
+  background: linear-gradient(135deg, var(--blood-red) 0%, #660000 100%);
+  color: var(--medieval-gold);
+  border: 5px solid var(--medieval-gold);
+  border-radius: 8px;
+  padding: 15px 35px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: var(--castle-shadow);
+  font-family: 'MedievalSharp', serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
 }
 
 .reset-btn:hover {
-  background: #d90058;
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #b30000 0%, #8b0000 100%);
+  transform: translate(-3px, -3px) scale(1.05);
+  box-shadow:
+    8px 8px 0px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(139, 0, 0, 0.7);
+  border-color: #ffd700;
 }
 
 .reset-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  transform: translate(3px, 3px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.3);
 }
 
-/* Responsive */
+/* 📱 RESPONSIVE - ADAPTATION POUR PARCHEMINS PLUS PETITS 📱 */
 @media screen and (max-width: 500px) {
   .container {
-    padding: 10px;
+    padding: 12px;
   }
 
   .header {
-    padding: 12px;
-    margin-bottom: 12px;
+    padding: 20px 15px;
+    margin-bottom: 15px;
   }
 
   .title {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
   }
 
   .date {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 
   .counter-section {
-    padding: 15px;
-    margin-bottom: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+  }
+
+  .table-top {
+    max-width: 320px;
+    height: 320px;
   }
 
   .counter-number {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
   }
 
   .section-title {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
   }
 
   .family-grid {
-    gap: 8px;
+    gap: 10px;
   }
 
   .member-btn {
-    padding: 12px 10px;
-    font-size: 0.9rem;
+    padding: 14px 12px;
+    font-size: 1rem;
   }
 
   .action-btn {
-    padding: 6px 4px;
-    font-size: 0.9rem;
+    padding: 8px 6px;
+    font-size: 1rem;
   }
 
   .participant-card {
-    padding: 10px;
+    padding: 12px;
   }
 
   .participant-icon {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
   }
 
   .participant-name {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 }
 
 @media screen and (max-width: 350px) {
   .family-grid {
     grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 1.4rem;
   }
 }

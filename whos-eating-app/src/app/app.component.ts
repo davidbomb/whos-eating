@@ -54,6 +54,35 @@ export class AppComponent {
     return emoji.repeat(Math.min(this.totalCount, 10));
   }
 
+  getPlates(): Array<{top: number, left: number, transform: string}> {
+    const plates = [];
+    const count = this.totalCount;
+
+    // Rayon du cercle pour positionner les assiettes (en pourcentage)
+    const radius = 42; // Distance du centre à l'assiette
+    const centerX = 50; // Centre X en %
+    const centerY = 50; // Centre Y en %
+
+    for (let i = 0; i < count; i++) {
+      // Calcul de l'angle pour répartir équitablement les assiettes
+      // On commence à -90° (en haut) pour que la première assiette soit en haut
+      const angle = (i * 360 / count) - 90;
+      const angleRad = angle * Math.PI / 180;
+
+      // Calcul des positions X et Y
+      const x = centerX + radius * Math.cos(angleRad);
+      const y = centerY + radius * Math.sin(angleRad);
+
+      plates.push({
+        top: y,
+        left: x,
+        transform: `translate(-50%, -50%) rotate(${angle}deg)`
+      });
+    }
+
+    return plates;
+  }
+
   get totalCount(): number {
     return this.participants.length;
   }
@@ -81,6 +110,14 @@ export class AppComponent {
       this.selectedMember = '';
       this.saveData();
     }
+  }
+
+  removeMember(member: string) {
+    // Retirer le membre et tous ses invités
+    this.participants = this.participants.filter(
+      p => !(p.name === member && !p.isGuest) && p.addedBy !== member
+    );
+    this.saveData();
   }
 
   addGuest(addedBy: string) {

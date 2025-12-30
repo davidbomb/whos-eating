@@ -5,10 +5,24 @@
   </header>
 
   <div class="counter-section">
-    <div class="counter-display">
-      <div class="counter-number">{{ totalCount }}</div>
-      <div class="counter-label">convive{{ totalCount > 1 ? 's' : '' }}</div>
-      <div class="counter-emoji">{{ getEmojis() }}</div>
+    <div class="table-container">
+      <div class="table-top">
+        <div class="table-wood-grain"></div>
+        <div class="counter-number">{{ totalCount }}</div>
+        <div class="counter-label">convive{{ totalCount > 1 ? 's' : '' }}</div>
+
+        <!-- Assiettes autour de la table - positionnement dynamique -->
+        <div class="plates-container">
+          <div
+            *ngFor="let plate of getPlates(); let i = index"
+            class="plate"
+            [style.top.%]="plate.top"
+            [style.left.%]="plate.left"
+            [style.transform]="plate.transform">
+            <div class="plate-inner"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -16,26 +30,25 @@
     <h2 class="section-title">Qui vient manger ?</h2>
 
     <div class="family-grid">
-      <button
-        *ngFor="let member of familyMembers"
-        class="member-btn"
-        [class.registered]="hasMemberRegistered(member)"
-        [disabled]="hasMemberRegistered(member)"
-        (click)="addMember(member)">
-        <span class="member-name">{{ member }}</span>
-        <span class="member-status">{{ hasMemberRegistered(member) ? '✓' : '+' }}</span>
-      </button>
-    </div>
+      <div *ngFor="let member of familyMembers" class="member-card">
+        <button
+          class="member-btn"
+          [class.registered]="hasMemberRegistered(member)"
+          [disabled]="hasMemberRegistered(member)"
+          (click)="addMember(member)">
+          <span class="member-name">{{ member }}</span>
+          <span class="member-status">{{ hasMemberRegistered(member) ? '✓' : '+' }}</span>
+        </button>
 
-    <div class="guest-section" *ngIf="hasAnyRegistered()">
-      <button
-        *ngFor="let member of familyMembers"
-        class="guest-btn"
-        [disabled]="!hasMemberRegistered(member)"
-        (click)="openGuestForm(member)">
-        <span class="guest-icon">👤</span>
-        <span class="guest-text">Invité de {{ member }}</span>
-      </button>
+        <div class="member-actions" *ngIf="hasMemberRegistered(member)">
+          <button class="action-btn guest-add-btn" (click)="openGuestForm(member)" title="Ajouter un invité">
+            👤+
+          </button>
+          <button class="action-btn member-remove-btn" (click)="removeMember(member)" title="Se désinscrire">
+            ✕
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -52,7 +65,7 @@
             </span>
           </div>
         </div>
-        <button class="remove-btn" (click)="removeParticipant(participant)">✕</button>
+        <button class="remove-btn" (click)="removeParticipant(participant)" title="Retirer">✕</button>
       </div>
     </div>
   </div>

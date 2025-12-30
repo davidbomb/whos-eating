@@ -47,48 +47,118 @@
 }
 
 .counter-section {
-  background: var(--retro-pink);
   padding: 20px;
-  border-radius: 15px;
-  border: 3px solid var(--retro-brown);
-  box-shadow: var(--shadow);
-  text-align: center;
   margin-bottom: 15px;
-  transform: rotate(1deg);
 }
 
-.counter-display {
+.table-container {
+  perspective: 800px;
+}
+
+.table-top {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  height: 350px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #8b4513 0%, #a0522d 50%, #8b4513 100%);
+  border-radius: 50%;
+  border: 8px solid var(--retro-brown);
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.3),
+    inset 0 0 40px rgba(0, 0, 0, 0.2),
+    inset 0 0 80px rgba(139, 69, 19, 0.3);
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  transform: rotateX(25deg);
 }
 
-.counter-label {
-  font-size: 0.9rem;
-  color: white;
-  margin-top: 5px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+.table-wood-grain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 10px,
+      rgba(0, 0, 0, 0.03) 10px,
+      rgba(0, 0, 0, 0.03) 20px
+    );
+  pointer-events: none;
 }
 
 .counter-number {
-  font-size: 3rem;
+  font-size: 3.5rem;
   font-weight: 900;
   color: var(--retro-yellow);
-  text-shadow: 3px 3px 0px var(--retro-brown);
+  text-shadow:
+    3px 3px 0px var(--retro-brown),
+    0 0 20px rgba(247, 184, 1, 0.5);
   line-height: 1;
+  z-index: 10;
+  position: relative;
 }
 
-.counter-emoji {
-  font-size: 1.5rem;
-  margin-top: 8px;
-  animation: bounce 2s infinite;
+.counter-label {
+  font-size: 1rem;
+  color: var(--retro-cream);
+  margin-top: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  z-index: 10;
+  position: relative;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+.plates-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.plate {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: white;
+  border: 3px solid var(--retro-brown);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    inset 0 0 10px rgba(0, 0, 0, 0.1);
+  animation: plateAppear 0.5s ease-out;
+}
+
+.plate-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  border: 2px solid #e0e0e0;
+}
+
+@keyframes plateAppear {
+  from {
+    transform: translate(-50%, -50%) scale(0) rotate(180deg);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    opacity: 1;
+  }
 }
 
 .add-section {
@@ -109,6 +179,13 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-bottom: 15px;
+}
+
+.member-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .member-btn {
@@ -141,7 +218,7 @@
 .member-btn.registered {
   background: var(--retro-green);
   color: var(--retro-brown);
-  cursor: not-allowed;
+  cursor: default;
 }
 
 .member-status {
@@ -149,67 +226,50 @@
   font-weight: bold;
 }
 
-.guest-section {
-  margin-top: 15px;
-  padding: 12px;
-  background: var(--retro-light);
-  border: 3px dashed var(--retro-orange);
-  border-radius: 12px;
+.member-actions {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
-.guest-title {
-  font-size: 1.3rem;
-  margin-bottom: 15px;
-  color: var(--retro-brown);
-  text-align: center;
-  font-weight: bold;
-}
-
-.guest-buttons {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.guest-btn {
-  background: var(--retro-orange);
-  color: white;
-  border: 3px solid var(--retro-brown);
-  border-radius: 10px;
-  padding: 10px 12px;
-  font-size: 0.9rem;
+.action-btn {
+  flex: 1;
+  border: 2px solid var(--retro-brown);
+  border-radius: 8px;
+  padding: 8px 6px;
+  font-size: 1rem;
   font-weight: bold;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.2);
   font-family: 'Comic Sans MS', cursive;
-  display: flex;
-  align-items: center;
-  gap: 8px;
 }
 
-.guest-icon {
-  font-size: 1.2rem;
+.action-btn:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.25);
 }
 
-.guest-text {
-  flex: 1;
-  text-align: left;
+.action-btn:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
 }
 
-.guest-btn:hover:not(:disabled) {
-  transform: translate(-2px, -2px);
-  box-shadow: 5px 5px 0px rgba(0, 0, 0, 0.25);
+.guest-add-btn {
+  background: var(--retro-orange);
+  color: white;
 }
 
-.guest-btn:disabled {
-  background: #cccccc;
-  color: #888888;
-  cursor: not-allowed;
-  opacity: 0.5;
+.guest-add-btn:hover {
+  background: #ff7c4a;
+}
+
+.member-remove-btn {
+  background: var(--retro-pink);
+  color: white;
+}
+
+.member-remove-btn:hover {
+  background: #ff1a7e;
 }
 
 .participants-section {
@@ -473,6 +533,11 @@
 
   .member-btn {
     padding: 12px 10px;
+    font-size: 0.9rem;
+  }
+
+  .action-btn {
+    padding: 6px 4px;
     font-size: 0.9rem;
   }
 

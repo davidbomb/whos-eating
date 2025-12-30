@@ -1,12 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Participant {
-  name: string;
-  isGuest: boolean;
-  addedBy?: string;
-}
+import { DataService, Participant } from './services/data.service';
 
 @Component({
   selector: 'app-root',
@@ -23,20 +18,13 @@ export class AppComponent {
   selectedMember: string = '';
   showGuestForm: boolean = false;
 
+  constructor(private dataService: DataService) {}
+
   ngOnInit() {
-    // Charger les données du localStorage
-    const saved = localStorage.getItem('lunchParticipants');
-    if (saved) {
-      const data = JSON.parse(saved);
-      // Vérifier si les données sont du jour actuel
-      const today = new Date().toDateString();
-      if (data.date === today) {
-        this.participants = data.participants;
-      } else {
-        // Nouveau jour, réinitialiser
-        this.resetDay();
-      }
-    }
+    // S'abonner aux changements en temps réel depuis Firebase
+    this.dataService.participants$.subscribe(participants => {
+      this.participants = participants;
+    });
   }
 
   getCurrentDate(): string {
@@ -103,43 +91,39 @@ export class AppComponent {
 
   addMember(member: string) {
     if (!this.hasMemberRegistered(member)) {
-      this.participants.push({
+      const newParticipants = [...this.participants, {
         name: member,
         isGuest: false
-      });
-      this.selectedMember = '';
-      this.saveData();
+      }];
+      this.dataService.saveParticipants(newParticipants);
     }
   }
 
   removeMember(member: string) {
     // Retirer le membre et tous ses invités
-    this.participants = this.participants.filter(
+    const newParticipants = this.participants.filter(
       p => !(p.name === member && !p.isGuest) && p.addedBy !== member
     );
-    this.saveData();
+    this.dataService.saveParticipants(newParticipants);
   }
 
   addGuest(addedBy: string) {
     if (this.guestName.trim() && addedBy) {
-      this.participants.push({
+      const newParticipants = [...this.participants, {
         name: this.guestName.trim(),
         isGuest: true,
         addedBy: addedBy
-      });
+      }];
       this.guestName = '';
       this.showGuestForm = false;
       this.selectedMember = '';
-      this.saveData();
+      this.dataService.saveParticipants(newParticipants);
     }
   }
 
   removeParticipant(participant: Participant) {
-    const index = this.participants.indexOf(participant);
-    if (index > -1) {
-      this.participants.splice(index, 1);
-      this.saveData();
-    }
+    const newParticipants = this.participants.filter(p => p !== participant);
+    this.dataService.saveParticipants(newParticipants);
   }
 
   openGuestForm(member: string) {
@@ -153,16 +137,8 @@ export class AppComponent {
     this.selectedMember = '';
   }
 
-  saveData() {
-    const data = {
-      date: new Date().toDateString(),
-      participants: this.participants
-    };
-    localStorage.setItem('lunchParticipants', JSON.stringify(data));
-  }
-
   resetDay() {
-    this.participants = [];
-    this.saveData();
+    // Réinitialiser dans Firebase
+    this.dataService.resetDay();
   }
 }

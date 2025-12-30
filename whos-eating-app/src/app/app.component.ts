@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService, Participant } from './services/data.service';
@@ -9,7 +9,7 @@ import { DataService, Participant } from './services/data.service';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
   title = 'Qui Mange Ce Midi ? 🍽️';
 
   familyMembers = ['Papa', 'Maman', 'David', 'Apo', 'Clovis', 'Julien'];
@@ -18,18 +18,11 @@ export class AppComponent {
   selectedMember: string = '';
   showGuestForm: boolean = false;
 
-  // Easter Egg Musical
-  musicActivated: boolean = false;
-  private audioContext?: AudioContext;
-  private currentSource?: AudioBufferSourceNode;
-
   // Easter Egg - Bougie décorative
   easterEggActivated: boolean = false;
   private easterEggAudio?: HTMLAudioElement;
 
-  constructor(private dataService: DataService) {}
-
-  ngOnInit() {
+  constructor(private dataService: DataService) {
     // S'abonner aux changements en temps réel depuis Firebase
     this.dataService.participants$.subscribe(participants => {
       this.participants = participants;
@@ -43,12 +36,6 @@ export class AppComponent {
       month: 'long',
       day: 'numeric'
     });
-  }
-
-  getEmojis(): string {
-    if (this.totalCount === 0) return '😴';
-    const emoji = '🍽️';
-    return emoji.repeat(Math.min(this.totalCount, 10));
   }
 
   getPlates(): Array<{top: number, left: number, transform: string}> {
@@ -84,18 +71,8 @@ export class AppComponent {
     return this.participants.length;
   }
 
-  get availableMembers(): string[] {
-    return this.familyMembers.filter(
-      member => !this.participants.some(p => p.name === member && !p.isGuest)
-    );
-  }
-
   hasMemberRegistered(member: string): boolean {
     return this.participants.some(p => p.name === member && !p.isGuest);
-  }
-
-  hasAnyRegistered(): boolean {
-    return this.participants.some(p => !p.isGuest);
   }
 
   addMember(member: string) {
@@ -151,86 +128,9 @@ export class AppComponent {
     this.dataService.resetDay();
   }
 
-  // 🎵 Easter Egg Musical - Toggle Music
-  toggleMusic() {
-    this.musicActivated = !this.musicActivated;
-
-    if (this.musicActivated) {
-      this.playMedievalMusic();
-    } else {
-      this.stopMusic();
-    }
-  }
-
-  private playMedievalMusic() {
-    // Créer un contexte audio si nécessaire
-    if (!this.audioContext) {
-      this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    }
-
-    // Créer une mélodie médiévale simple avec l'API Web Audio
-    this.playMelody();
-  }
-
-  private playMelody() {
-    if (!this.audioContext) return;
-
-    const ctx = this.audioContext;
-    const now = ctx.currentTime;
-
-    // Mélodie médiévale festive (notes en Hz)
-    // Utilisant une gamme médiévale pentatonique
-    const melody = [
-      { freq: 523.25, start: 0, duration: 0.3 },    // C5
-      { freq: 587.33, start: 0.3, duration: 0.3 },  // D5
-      { freq: 659.25, start: 0.6, duration: 0.3 },  // E5
-      { freq: 698.46, start: 0.9, duration: 0.3 },  // F5
-      { freq: 783.99, start: 1.2, duration: 0.4 },  // G5
-      { freq: 698.46, start: 1.6, duration: 0.2 },  // F5
-      { freq: 659.25, start: 1.8, duration: 0.2 },  // E5
-      { freq: 587.33, start: 2.0, duration: 0.4 },  // D5
-      { freq: 523.25, start: 2.4, duration: 0.6 },  // C5
-    ];
-
-    melody.forEach(note => {
-      const oscillator = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-
-      oscillator.type = 'triangle'; // Son médiéval doux
-      oscillator.frequency.value = note.freq;
-
-      // Enveloppe ADSR pour un son plus naturel
-      gainNode.gain.setValueAtTime(0, now + note.start);
-      gainNode.gain.linearRampToValueAtTime(0.3, now + note.start + 0.05);
-      gainNode.gain.linearRampToValueAtTime(0.2, now + note.start + note.duration * 0.7);
-      gainNode.gain.linearRampToValueAtTime(0, now + note.start + note.duration);
-
-      oscillator.connect(gainNode);
-      gainNode.connect(ctx.destination);
-
-      oscillator.start(now + note.start);
-      oscillator.stop(now + note.start + note.duration);
-    });
-
-    // Répéter la mélodie
-    if (this.musicActivated) {
-      setTimeout(() => {
-        if (this.musicActivated) {
-          this.playMelody();
-        }
-      }, 3000);
-    }
-  }
-
-  private stopMusic() {
-    if (this.currentSource) {
-      this.currentSource.stop();
-      this.currentSource = undefined;
-    }
-  }
-
   // 🕯️ Easter Egg - Bougie Décorative
   toggleEasterEggMusic() {
+    console.log('🎵 Toggle Easter Egg Music - Activated:', !this.easterEggActivated);
     this.easterEggActivated = !this.easterEggActivated;
 
     if (this.easterEggActivated) {
@@ -241,33 +141,87 @@ export class AppComponent {
   }
 
   private playEasterEggMusic() {
+    console.log('🎵 Tentative de lecture de la musique...');
+
     // Créer l'élément audio s'il n'existe pas
     if (!this.easterEggAudio) {
+      console.log('🎵 Création du lecteur audio...');
       this.easterEggAudio = new Audio();
-      this.easterEggAudio.src = '/assets/perceval-cheque-de-caution.mp3';
+      // Utiliser un chemin relatif qui fonctionne en dev et en prod
+      this.easterEggAudio.src = 'assets/perceval-cheque-de-caution.mp3';
       this.easterEggAudio.loop = true; // Lecture en boucle
       this.easterEggAudio.volume = 0.5; // Volume à 50%
+
+      // Précharger l'audio
+      this.easterEggAudio.load();
+
+      // Événements pour déboguer
+      this.easterEggAudio.addEventListener('canplay', () => {
+        console.log('🎵 Audio prêt à être joué');
+      });
+
+      this.easterEggAudio.addEventListener('error', (e) => {
+        console.error('🎵 Erreur de chargement audio:', e);
+        console.error('🎵 Source:', this.easterEggAudio?.src);
+        console.error('🎵 URL complète:', window.location.origin + '/' + this.easterEggAudio?.src);
+      });
+
+      this.easterEggAudio.addEventListener('play', () => {
+        console.log('🎵 Lecture démarrée');
+      });
+
+      this.easterEggAudio.addEventListener('pause', () => {
+        console.log('🎵 Lecture en pause');
+      });
     }
 
-    // Jouer la musique
-    this.easterEggAudio.play().catch(error => {
-      console.error('Erreur lors de la lecture de la musique:', error);
-      this.easterEggActivated = false;
-    });
+    // Jouer la musique avec gestion d'erreur améliorée
+    console.log('🎵 Appel de play()...');
+    const playPromise = this.easterEggAudio.play();
+
+    if (playPromise !== undefined) {
+      playPromise
+        .then(() => {
+          console.log('🎵 Lecture réussie!');
+        })
+        .catch(error => {
+          console.error('🎵 Erreur lors de la lecture:', error);
+          console.error('🎵 Type d\'erreur:', error.name);
+          console.error('🎵 Message:', error.message);
+
+          // Si c'est une erreur d'interaction utilisateur requise
+          if (error.name === 'NotAllowedError') {
+            console.warn('🎵 L\'interaction utilisateur est requise pour jouer l\'audio sur mobile');
+            // Réessayer avec un événement utilisateur
+            alert('Cliquez sur OK pour activer la musique');
+            this.easterEggAudio?.play().catch(e => {
+              console.error('🎵 Échec après interaction:', e);
+              this.easterEggActivated = false;
+            });
+          } else {
+            this.easterEggActivated = false;
+          }
+        });
+    }
   }
 
   private stopEasterEggMusic() {
+    console.log('🎵 Arrêt de la musique...');
     if (this.easterEggAudio) {
       this.easterEggAudio.pause();
       this.easterEggAudio.currentTime = 0; // Remettre au début
+      console.log('🎵 Musique arrêtée');
     }
   }
 
   ngOnDestroy() {
-    this.stopMusic();
     this.stopEasterEggMusic();
-    if (this.audioContext) {
-      this.audioContext.close();
+    if (this.easterEggAudio) {
+      // Nettoyer les listeners
+      this.easterEggAudio.pause();
+      this.easterEggAudio.src = '';
+      this.easterEggAudio.load();
+      this.easterEggAudio = undefined;
     }
   }
 }

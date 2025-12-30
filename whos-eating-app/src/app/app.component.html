@@ -1,10 +1,27 @@
 <div class="container">
+  <!-- 🏰 DÉCORATION CHÂTEAU HAUT 🏰 -->
+  <div class="castle-decoration-top">
+    <div class="torch torch-left">🕯️</div>
+    <div class="castle-banner">
+      <div class="banner-flag">⚜️</div>
+    </div>
+    <div class="torch torch-right">🕯️</div>
+  </div>
+
   <header class="header">
+    <!-- Ornements de coins médiévaux -->
+    <div class="corner-ornament corner-top-left"></div>
+    <div class="corner-ornament corner-top-right"></div>
+    <div class="corner-ornament corner-bottom-left"></div>
+    <div class="corner-ornament corner-bottom-right"></div>
+
     <h1 class="title">{{ title }}</h1>
     <div class="date">{{ getCurrentDate() }}</div>
   </header>
 
   <div class="counter-section">
+    <!-- Bannières de festin -->
+
     <div class="table-container">
       <div class="table-top">
         <div class="table-wood-grain"></div>
@@ -24,10 +41,20 @@
         </div>
       </div>
     </div>
+
+    <!-- Candélabres -->
+    <div class="candelabra candelabra-left">🕯️</div>
+    <div class="candelabra candelabra-right">🕯️</div>
   </div>
 
   <div class="add-section">
-    <h2 class="section-title">Qui vient manger ?</h2>
+    <!-- Couronne royale -->
+
+    <h2 class="section-title">
+      <span class="title-decoration">⚔️</span>
+      Qui vient manger ?
+      <span class="title-decoration">⚔️</span>
+    </h2>
 
     <div class="family-grid">
       <div *ngFor="let member of familyMembers" class="member-card">
@@ -37,27 +64,43 @@
           [disabled]="hasMemberRegistered(member)"
           (click)="addMember(member)">
           <span class="member-name">{{ member }}</span>
-          <span class="member-status">{{ hasMemberRegistered(member) ? '✓' : '+' }}</span>
+          <span class="member-status">{{ hasMemberRegistered(member) ? '⚜️' : '➕' }}</span>
         </button>
 
         <div class="member-actions" *ngIf="hasMemberRegistered(member)">
           <button class="action-btn guest-add-btn" (click)="openGuestForm(member)" title="Ajouter un invité">
-            👤+
+            🎭+
           </button>
           <button class="action-btn member-remove-btn" (click)="removeMember(member)" title="Se désinscrire">
-            ✕
+            ⚔️
           </button>
         </div>
       </div>
     </div>
+
+    <!-- Pieds de section médiévaux -->
+    <div class="section-footer">
+      <span class="footer-ornament">✦</span>
+      <span class="footer-ornament">✦</span>
+      <span class="footer-ornament">✦</span>
+    </div>
   </div>
 
   <div class="participants-section" *ngIf="participants.length > 0">
-    <h2 class="section-title">Participants ({{ totalCount }})</h2>
+    <!-- Trompettes d'annonce -->
+    <div class="trumpet trumpet-left">🎺</div>
+    <div class="trumpet trumpet-right">🎺</div>
+
+    <h2 class="section-title">
+      <span class="title-decoration">🏰</span>
+      Participants ({{ totalCount }})
+      <span class="title-decoration">🏰</span>
+    </h2>
+
     <div class="participants-list">
       <div *ngFor="let participant of participants" class="participant-card">
         <div class="participant-info">
-          <span class="participant-icon">{{ participant.isGuest ? '👤' : '👨‍👩‍👧‍👦' }}</span>
+          <span class="participant-icon">{{ participant.isGuest ? '🎭' : '👨‍👩‍👧‍👦' }}</span>
           <div class="participant-details">
             <span class="participant-name">{{ participant.name }}</span>
             <span class="participant-label" *ngIf="participant.isGuest">
@@ -65,14 +108,24 @@
             </span>
           </div>
         </div>
-        <button class="remove-btn" (click)="removeParticipant(participant)" title="Retirer">✕</button>
+        <button class="remove-btn" (click)="removeParticipant(participant)" title="Retirer">⚔️</button>
       </div>
     </div>
+
+    <!-- Sceau royal -->
+    <div class="royal-seal">🔱</div>
   </div>
 
   <div class="modal-overlay" *ngIf="showGuestForm" (click)="cancelGuestForm()">
     <div class="modal" (click)="$event.stopPropagation()">
-      <h3 class="modal-title">Invité de {{ selectedMember }}</h3>
+      <!-- Bannière du modal -->
+      <div class="modal-banner">
+      </div>
+
+      <h3 class="modal-title">
+        Invité de {{ selectedMember }}
+      </h3>
+
       <input
         type="text"
         class="guest-input"
@@ -80,14 +133,44 @@
         placeholder="Nom de l'invité"
         (keyup.enter)="addGuest(selectedMember)"
         autofocus>
+
       <div class="modal-buttons">
-        <button class="btn-cancel" (click)="cancelGuestForm()">Annuler</button>
-        <button class="btn-confirm" (click)="addGuest(selectedMember)" [disabled]="!guestName.trim()">Ajouter</button>
+        <button class="btn-cancel" (click)="cancelGuestForm()">
+          <span class="btn-icon">✕</span>
+          Annuler
+        </button>
+        <button class="btn-confirm" (click)="addGuest(selectedMember)" [disabled]="!guestName.trim()">
+          <span class="btn-icon">⚜️</span>
+          Ajouter
+        </button>
+      </div>
+
+      <!-- Décoration bas modal -->
+      <div class="modal-decoration">
+        <span>✦</span>
+        <span>✦</span>
+        <span>✦</span>
       </div>
     </div>
   </div>
 
   <footer class="footer" *ngIf="participants.length > 0">
-    <button class="reset-btn" (click)="resetDay()">🔄 Réinitialiser</button>
+    <div class="footer-decoration">
+    </div>
+    <button class="reset-btn" (click)="resetDay()">
+      <span class="reset-icon">⚔️</span>
+      Réinitialiser le Festin
+    </button>
   </footer>
+
+  <!-- 🏰 DÉCORATION CHÂTEAU BAS 🏰 -->
+  <div class="castle-decoration-bottom">
+    <div class="castle-foundation">
+      <span class="foundation-stone">▪️</span>
+      <span class="foundation-stone">▪️</span>
+      <span class="foundation-stone">▪️</span>
+      <span class="foundation-stone">▪️</span>
+      <span class="foundation-stone">▪️</span>
+    </div>
+  </div>
 </div>

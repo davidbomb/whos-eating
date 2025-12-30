@@ -16,95 +16,251 @@
 }
 
 .container {
-  max-width: 650px;
+  max-width: 700px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px 25px;
   min-height: 100vh;
   position: relative;
   z-index: 1;
+  /* Bordures de château en pierre */
+  border-left: 15px solid #6b5d54;
+  border-right: 15px solid #6b5d54;
+  box-shadow:
+    inset 5px 0 15px rgba(0, 0, 0, 0.3),
+    inset -5px 0 15px rgba(0, 0, 0, 0.3);
+  background:
+    linear-gradient(90deg,
+      rgba(107, 93, 84, 0.1) 0%,
+      transparent 10%,
+      transparent 90%,
+      rgba(107, 93, 84, 0.1) 100%
+    );
 }
 
-/* 🏰 BANNIÈRE ROYALE 🏰 */
+/* 📜 BANNIÈRE PARCHEMIN VECTORIEL 📜 */
 .header {
   text-align: center;
-  margin-bottom: 20px;
-  padding: 25px 20px;
-  background: linear-gradient(135deg, var(--medieval-red) 0%, #b30000 50%, var(--medieval-red) 100%);
-  border: 6px solid var(--medieval-gold);
-  border-radius: 0;
-  box-shadow:
-    var(--castle-shadow),
-    inset 0 0 30px rgba(0, 0, 0, 0.3),
-    0 0 0 2px var(--medieval-brown);
+  padding: 60px 50px 55px 50px;
   position: relative;
-  transform: perspective(400px) rotateX(2deg);
+  /* Parchemin vectoriel SVG bannière avec ornements */
+  background-image: url('/assets/parchment-banner.svg');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Hauteur pour bien afficher le parchemin */
+  min-height: 180px;
+  /* Bordure médiévale fancy */
+  border: 6px solid transparent;
+  border-image: linear-gradient(
+    135deg,
+    #B8941F 0%,
+    #C9A227 25%,
+    #B8941F 50%,
+    #C9A227 75%,
+    #B8941F 100%
+  ) 1;
+  outline: 3px solid #3D2817;
+  outline-offset: -9px;
+  box-shadow:
+    0 0 0 2px #B8941F,
+    0 0 0 12px rgba(184, 148, 31, 0.1),
+    inset 0 0 40px rgba(184, 148, 31, 0.15);
+  /* Ombres pour profondeur */
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.35))
+          drop-shadow(0 5px 8px rgba(0, 0, 0, 0.25));
+  /* Fond de secours couleur parchemin */
+  background-color: #FFF8E1;
 }
 
-/* Motif héraldique sur la bannière */
+/* Coins enluminés dorés - haut gauche */
 .header::before {
-  content: '⚔️';
+  content: '';
   position: absolute;
-  top: -15px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2rem;
-  background: var(--medieval-gold);
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 4px solid var(--medieval-brown);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  top: -6px;
+  left: -6px;
+  width: 50px;
+  height: 50px;
+  background:
+    linear-gradient(135deg, transparent 0%, transparent 48%, #B8941F 48%, #B8941F 52%, transparent 52%),
+    linear-gradient(45deg, #C9A227 0%, #B8941F 100%);
+  border-radius: 0 0 15px 0;
+  box-shadow:
+    inset 2px 2px 4px rgba(201, 162, 39, 0.5),
+    2px 2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 10;
 }
 
-/* Drapeaux décoratifs */
+/* Coins enluminés dorés - bas droit */
 .header::after {
-  content: '🏰';
+  content: '';
   position: absolute;
-  bottom: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 2.5rem;
-  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.5));
+  bottom: -6px;
+  right: -6px;
+  width: 50px;
+  height: 50px;
+  background:
+    linear-gradient(-45deg, transparent 0%, transparent 48%, #B8941F 48%, #B8941F 52%, transparent 52%),
+    linear-gradient(-135deg, #C9A227 0%, #B8941F 100%);
+  border-radius: 15px 0 0 0;
+  box-shadow:
+    inset -2px -2px 4px rgba(201, 162, 39, 0.5),
+    -2px -2px 6px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+/* Ornements de coins médiévaux - fleurons dorés */
+.corner-ornament {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  z-index: 15;
+}
+
+.corner-ornament::before,
+.corner-ornament::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(135deg, #C9A227 0%, #B8941F 100%);
+  border-radius: 50%;
+}
+
+.corner-top-left {
+  top: 8px;
+  left: 8px;
+}
+
+.corner-top-left::before {
+  width: 12px;
+  height: 12px;
+  top: 0;
+  left: 0;
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.8);
+}
+
+.corner-top-left::after {
+  width: 8px;
+  height: 8px;
+  top: 16px;
+  left: 16px;
+  box-shadow: 0 0 6px rgba(184, 148, 31, 0.6);
+}
+
+.corner-top-right {
+  top: 8px;
+  right: 8px;
+}
+
+.corner-top-right::before {
+  width: 12px;
+  height: 12px;
+  top: 0;
+  right: 0;
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.8);
+}
+
+.corner-top-right::after {
+  width: 8px;
+  height: 8px;
+  top: 16px;
+  right: 16px;
+  box-shadow: 0 0 6px rgba(184, 148, 31, 0.6);
+}
+
+.corner-bottom-left {
+  bottom: 8px;
+  left: 8px;
+}
+
+.corner-bottom-left::before {
+  width: 12px;
+  height: 12px;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.8);
+}
+
+.corner-bottom-left::after {
+  width: 8px;
+  height: 8px;
+  bottom: 16px;
+  left: 16px;
+  box-shadow: 0 0 6px rgba(184, 148, 31, 0.6);
+}
+
+.corner-bottom-right {
+  bottom: 8px;
+  right: 8px;
+}
+
+.corner-bottom-right::before {
+  width: 12px;
+  height: 12px;
+  bottom: 0;
+  right: 0;
+  box-shadow: 0 0 8px rgba(201, 162, 39, 0.8);
+}
+
+.corner-bottom-right::after {
+  width: 8px;
+  height: 8px;
+  bottom: 16px;
+  right: 16px;
+  box-shadow: 0 0 6px rgba(184, 148, 31, 0.6);
 }
 
 .title {
   font-size: 2rem;
   margin: 0;
-  color: var(--medieval-gold);
+  /* Encre marron sur parchemin */
+  color: #2c1810;
   text-shadow:
-    3px 3px 0px var(--medieval-brown),
-    0 0 20px rgba(212, 175, 55, 0.8),
-    0 0 30px rgba(255, 215, 0, 0.5);
-  font-weight: bold;
+    2px 2px 0px rgba(139, 69, 19, 0.4),
+    -1px -1px 0px rgba(0, 0, 0, 0.3);
+  font-weight: 700;
   line-height: 1.3;
-  font-family: 'UnifrakturMaguntia', 'MedievalSharp', serif;
-  letter-spacing: 2px;
+  font-family: 'Old London', 'UnifrakturMaguntia', cursive;
+  letter-spacing: 3px;
   text-transform: uppercase;
+  position: relative;
+  z-index: 10;
+}
+
+/* Décorations */
+.title::before {
+  content: '⚔️';
+  margin-right: 12px;
+  font-size: 1.6rem;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3));
+}
+
+.title::after {
+  content: '🍗';
+  margin-left: 12px;
+  font-size: 1.6rem;
+  filter: drop-shadow(2px 2px 3px rgba(0, 0, 0, 0.3));
 }
 
 .date {
-  font-size: 1rem;
-  color: var(--parchment);
-  margin-top: 8px;
-  font-weight: 600;
+  font-size: 1.1rem;
+  /* Encre marron sur parchemin */
+  color: #654321;
+  margin-top: 12px;
+  font-weight: 700;
   text-transform: capitalize;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  text-shadow:
+    2px 2px 0px rgba(139, 69, 19, 0.3),
+    -1px -1px 0px rgba(255, 255, 255, 0.5);
   font-style: italic;
+  font-family: 'MedievalSharp', serif;
+  position: relative;
+  z-index: 10;
 }
+
 
 /* 🍗 SECTION COMPTEUR - TABLE DE BANQUET 🍗 */
 .counter-section {
   padding: 25px;
   margin-bottom: 20px;
-  background: var(--parchment);
-  border: 5px solid var(--medieval-brown);
-  box-shadow:
-    var(--castle-shadow),
-    inset 0 0 20px rgba(139, 69, 19, 0.1);
-  position: relative;
 }
 
 /* Coins décoratifs */
@@ -152,7 +308,6 @@
   align-items: center;
   justify-content: center;
   transform: rotateX(30deg);
-  position: relative;
 }
 
 /* Texture bois avec veines prononcées */
@@ -500,7 +655,7 @@
 .participants-section::before {
   content: '👑';
   position: absolute;
-  top: -18px;
+  top: -25px;
   right: 20px;
   font-size: 2rem;
   background: var(--medieval-gold);
@@ -803,7 +958,6 @@
 
   .header {
     padding: 20px 15px;
-    margin-bottom: 15px;
   }
 
   .title {
@@ -869,3 +1023,285 @@
     font-size: 1.4rem;
   }
 }
+
+/* 🏰⚔️ DÉCORATIONS MÉDIÉVALES CHÂTEAU - EXAGÉRÉES ⚔️🏰 */
+
+/* === DÉCORATION HAUT CHÂTEAU === */
+.castle-decoration-top {
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px 0;
+}
+
+/* Torches flamboyantes */
+.torch {
+  position: absolute;
+  top: 0;
+  font-size: 3rem;
+  filter: drop-shadow(0 0 20px rgba(255, 140, 0, 0.8));
+}
+
+.torch-left {
+  left: 10px;
+}
+
+.torch-right {
+  right: 10px;
+}
+
+/* Bannière château */
+.castle-banner {
+  display: inline-block;
+  position: relative;
+}
+
+.banner-flag {
+  font-size: 4rem;
+  filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.4));
+}
+
+/* === DÉCORATIONS HEADER === */
+.header-chains {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.chain-link {
+  font-size: 1.5rem;
+  opacity: 0.7;
+}
+
+/* Blasons héraldiques */
+.herald-left,
+.herald-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+}
+
+.herald-left {
+  left: -15px;
+}
+
+.herald-right {
+  right: -15px;
+}
+
+/* === BANNIÈRES DE FESTIN === */
+.feast-banner {
+  position: absolute;
+  top: 20px;
+  font-size: 3rem;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.4));
+}
+
+.feast-banner-left {
+  left: -10px;
+}
+
+.feast-banner-right {
+  right: -10px;
+}
+
+/* Candélabres */
+.candelabra {
+  position: absolute;
+  bottom: 20px;
+  font-size: 2.5rem;
+  filter: drop-shadow(0 0 15px rgba(255, 200, 100, 0.8));
+}
+
+.candelabra-left {
+  left: 15px;
+}
+
+.candelabra-right {
+  right: 15px;
+}
+
+/* === COURONNE ROYALE === */
+.royal-crown {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3rem;
+  filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8));
+  z-index: 10;
+}
+
+/* === DÉCORATIONS TITRES === */
+.title-decoration {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 1.3rem;
+}
+
+/* === PIEDS DE SECTION === */
+.section-footer {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 3px double var(--medieval-gold);
+}
+
+.footer-ornament {
+  display: inline-block;
+  margin: 0 15px;
+  font-size: 1.5rem;
+  color: var(--medieval-gold);
+}
+
+/* === TROMPETTES D'ANNONCE === */
+.trumpet {
+  position: absolute;
+  top: 15px;
+  font-size: 2.5rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+}
+
+.trumpet-left {
+  left: 10px;
+  transform: rotate(30deg);
+}
+
+.trumpet-right {
+  right: 10px;
+  transform: rotate(30deg);
+}
+
+/* === SCEAU ROYAL === */
+.royal-seal {
+  position: absolute;
+  bottom: -20px;
+  right: 20px;
+  font-size: 3rem;
+  filter: drop-shadow(0 6px 12px rgba(139, 0, 0, 0.6));
+}
+
+/* === MODAL DÉCORATIONS === */
+.modal-banner {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
+}
+
+.modal-crown {
+  font-size: 3.5rem;
+  display: inline-block;
+  filter: drop-shadow(0 0 25px rgba(255, 215, 0, 0.9));
+}
+
+.modal-decoration {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 2px solid var(--medieval-gold);
+}
+
+.modal-decoration span {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 1.2rem;
+  color: var(--medieval-gold);
+}
+
+/* Icônes dans les boutons */
+.btn-icon {
+  display: inline-block;
+  margin-right: 8px;
+  font-size: 1.2rem;
+}
+
+/* === FOOTER DÉCORATIONS === */
+.footer-decoration {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.footer-shield {
+  font-size: 3rem;
+  display: inline-block;
+  filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.5));
+}
+
+.reset-icon {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 1.3rem;
+}
+
+/* === DÉCORATION BAS CHÂTEAU === */
+.castle-decoration-bottom {
+  margin-top: 40px;
+  padding: 30px 0;
+  text-align: center;
+  border-top: 5px double var(--medieval-gold);
+}
+
+.castle-foundation {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.foundation-stone {
+  font-size: 2rem;
+  color: var(--medieval-stone);
+}
+
+/* === AMÉLIORATIONS CARTES PARTICIPANTS === */
+.participant-card {
+  position: relative;
+  overflow: visible;
+}
+
+.participant-card::before {
+  content: '◆';
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--medieval-gold);
+  font-size: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* === RESPONSIVE DÉCORATIONS === */
+@media screen and (max-width: 500px) {
+  .torch {
+    font-size: 2rem;
+  }
+
+  .banner-flag {
+    font-size: 3rem;
+  }
+
+  .feast-banner,
+  .candelabra,
+  .royal-crown {
+    font-size: 2rem;
+  }
+
+  .herald-left,
+  .herald-right {
+    font-size: 1.8rem;
+  }
+
+  .trumpet {
+    font-size: 1.8rem;
+  }
+}
+

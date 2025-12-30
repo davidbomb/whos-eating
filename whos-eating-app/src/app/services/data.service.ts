@@ -25,12 +25,15 @@ export class DataService {
   public participants$: Observable<Participant[]> = this.participantsSubject.asObservable();
   private platformId = inject(PLATFORM_ID);
   private isBrowser: boolean;
+  private isInitialized: boolean = false;
 
   constructor() {
     this.isBrowser = isPlatformBrowser(this.platformId);
 
     // N'initialiser Firebase que côté navigateur
     if (this.isBrowser) {
+      console.log('🌐 Initialisation Firebase côté navigateur...');
+
       // Configuration Firebase
       const firebaseConfig = {
         apiKey: "AIzaSyBNORKbQDMjvMmovUWVAIKxmfOAcIpUtLY",
@@ -46,12 +49,15 @@ export class DataService {
         // Initialiser Firebase
         const app = initializeApp(firebaseConfig);
         this.db = getDatabase(app);
+        this.isInitialized = true;
         console.log('✅ Firebase initialisé avec succès');
+        console.log('📍 Database URL:', firebaseConfig.databaseURL);
 
         // Écouter les changements en temps réel
         this.listenToChanges();
       } catch (error) {
         console.error('❌ Erreur lors de l\'initialisation Firebase:', error);
+        this.isInitialized = false;
       }
     } else {
       console.log('⚠️ Exécution côté serveur - Firebase non initialisé');
@@ -59,30 +65,49 @@ export class DataService {
   }
 
   private listenToChanges() {
-    if (!this.isBrowser) {
-      console.log('⚠️ listenToChanges appelé côté serveur - ignoré');
+    if (!this.isBrowser || !this.isInitialized) {
+      console.log('⚠️ listenToChanges - conditions non remplies:', {
+        isBrowser: this.isBrowser,
+        isInitialized: this.isInitialized
+      });
       return;
     }
 
     const today = new Date().toDateString();
     const dataRef = ref(this.db, `lunches/${today}`);
 
-    console.log('🔍 Écoute des changements pour:', today);
+    console.log('🔍 Démarrage de l\'écoute des changements Firebase');
+    console.log('📅 Date du jour:', today);
+    console.log('🔗 Chemin Firebase:', `lunches/${today}`);
 
-    onValue(dataRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log('📡 Données reçues de Firebase:', data);
+    try {
+      onValue(dataRef, (snapshot) => {
+        console.log('📡 Événement Firebase reçu');
+        const data = snapshot.val();
 
-      if (data && data.participants) {
-        console.log('✅ Mise à jour avec', data.participants.length, 'participants');
-        this.participantsSubject.next(data.participants);
-      } else {
-        console.log('ℹ️ Aucune donnée - tableau vide');
-        this.participantsSubject.next([]);
-      }
-    }, (error) => {
-      console.error('❌ Erreur lors de la lecture Firebase:', error);
-    });
+        console.log('📦 Données brutes:', JSON.stringify(data, null, 2));
+
+        if (data && data.participants) {
+          console.log('✅ Mise à jour avec', data.participants.length, 'participants:',
+            data.participants.map((p: Participant) => p.name).join(', '));
+          this.participantsSubject.next(data.participants);
+        } else {
+          console.log('ℹ️ Aucune donnée - réinitialisation tableau vide');
+          this.participantsSubject.next([]);
+        }
+      }, (error) => {
+        console.error('❌ Erreur Firebase onValue:', error);
+        console.error('Détails erreur:', {
+          code: (error as any).code || 'unknown',
+          message: error.message || String(error),
+          stack: error.stack
+        });
+      });
+
+      console.log('✅ Listener Firebase configuré avec succès');
+    } catch (error) {
+      console.error('❌ Erreur lors de la configuration du listener:', error);
+    }
   }
 
   async saveParticipants(participants: Participant[]) {
@@ -91,20 +116,37 @@ export class DataService {
       return;
     }
 
+    if (!this.isInitialized || !this.db) {
+      console.error('❌ Firebase non initialisé - impossible de sauvegarder');
+      return;
+    }
+
     try {
       const today = new Date().toDateString();
       const dataRef = ref(this.db, `lunches/${today}`);
 
-      console.log('💾 Sauvegarde de', participants.length, 'participants dans Firebase');
+      console.log('💾 Tentative de sauvegarde dans Firebase');
+      console.log('📅 Date:', today);
+      console.log('📊 Nombre de participants:', participants.length);
+      console.log('👥 Participants:', participants.map(p => p.name).join(', '));
 
-      await set(dataRef, {
+      const dataToSave = {
         date: today,
         participants: participants
-      });
+      };
 
-      console.log('✅ Sauvegarde réussie');
+      console.log('📤 Données à sauvegarder:', JSON.stringify(dataToSave, null, 2));
+
+      await set(dataRef, dataToSave);
+
+      console.log('✅ Sauvegarde Firebase réussie');
     } catch (error) {
-      console.error('❌ Erreur lors de la sauvegarde:', error);
+      console.error('❌ Erreur lors de la sauvegarde Firebase:', error);
+      console.error('Détails erreur:', {
+        name: error instanceof Error ? error.name : 'Unknown',
+        message: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined
+      });
     }
   }
 
@@ -114,17 +156,27 @@ export class DataService {
       return;
     }
 
+    if (!this.isInitialized || !this.db) {
+      console.error('❌ Firebase non initialisé - impossible de réinitialiser');
+      return;
+    }
+
     try {
       const today = new Date().toDateString();
       const dataRef = ref(this.db, `lunches/${today}`);
 
-      console.log('🔄 Réinitialisation de la journée');
+      console.log('🔄 Tentative de réinitialisation Firebase');
+      console.log('📅 Date:', today);
 
       await remove(dataRef);
 
-      console.log('✅ Réinitialisation réussie');
+      console.log('✅ Réinitialisation Firebase réussie');
     } catch (error) {
-      console.error('❌ Erreur lors de la réinitialisation:', error);
+      console.error('❌ Erreur lors de la réinitialisation Firebase:', error);
+      console.error('Détails erreur:', {
+        name: error instanceof Error ? error.name : 'Unknown',
+        message: error instanceof Error ? error.message : String(error)
+      });
     }
   }
 }

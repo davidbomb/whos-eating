@@ -50,17 +50,17 @@ body::before {
   z-index: 0;
 }
 
-/* Torches murales d'ambiance */
-body::after {
-  content: '🔥';
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  font-size: 3rem;
-  filter: drop-shadow(0 0 30px rgba(255, 140, 0, 0.8));
-  pointer-events: none;
-  z-index: 1000;
-}
+/*!* Torches murales d'ambiance *!*/
+/*body::after {*/
+/*  content: '🔥';*/
+/*  position: fixed;*/
+/*  top: 20px;*/
+/*  right: 20px;*/
+/*  font-size: 3rem;*/
+/*  filter: drop-shadow(0 0 30px rgba(255, 140, 0, 0.8));*/
+/*  pointer-events: none;*/
+/*  z-index: 1000;*/
+/*}*/
 
 html, body {
   height: 100%;

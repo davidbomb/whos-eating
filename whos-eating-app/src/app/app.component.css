@@ -42,11 +42,6 @@
   text-align: center;
   padding: 60px 50px 55px 50px;
   position: relative;
-  /* Parchemin vectoriel SVG bannière avec ornements */
-  background-image: url('/assets/parchment-banner.svg');
-  background-size: 100% 100%;
-  background-repeat: no-repeat;
-  background-position: center;
   /* Hauteur pour bien afficher le parchemin */
   min-height: 180px;
   /* Bordure médiévale fancy */
@@ -54,9 +49,9 @@
   border-image: linear-gradient(
     135deg,
     #B8941F 0%,
-    #C9A227 25%,
-    #B8941F 50%,
-    #C9A227 75%,
+    #dab02c 25%,
+    #cfa414 50%,
+    #edbf2b 75%,
     #B8941F 100%
   ) 1;
   outline: 3px solid #3D2817;
@@ -100,7 +95,7 @@
   height: 50px;
   background:
     linear-gradient(-45deg, transparent 0%, transparent 48%, #B8941F 48%, #B8941F 52%, transparent 52%),
-    linear-gradient(-135deg, #C9A227 0%, #B8941F 100%);
+    linear-gradient(135deg, #ffd44b 0%, #B8941F 100%);
   border-radius: 15px 0 0 0;
   box-shadow:
     inset -2px -2px 4px rgba(201, 162, 39, 0.5),
@@ -120,7 +115,7 @@
 .corner-ornament::after {
   content: '';
   position: absolute;
-  background: linear-gradient(135deg, #C9A227 0%, #B8941F 100%);
+  background: linear-gradient(135deg, #ffd44b 0%, #B8941F 100%);
   border-radius: 50%;
 }
 
@@ -953,75 +948,210 @@
 /* 📱 RESPONSIVE - ADAPTATION POUR PARCHEMINS PLUS PETITS 📱 */
 @media screen and (max-width: 500px) {
   .container {
-    padding: 12px;
+    padding: 8px;
   }
 
   .header {
-    padding: 20px 15px;
+    padding: 15px 12px;
+    margin-bottom: 15px;
   }
 
+  /* Titre plus petit mais toujours lisible */
   .title {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    letter-spacing: 1px;
+  }
+
+  /* Emojis du titre adaptés */
+  .title::before,
+  .title::after {
+    font-size: 1.2rem;
+    margin: 0 6px;
   }
 
   .date {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    margin-top: 8px;
   }
 
+  /* Table réduite pour smartphone */
   .counter-section {
-    padding: 20px;
+    padding: 15px 10px;
     margin-bottom: 15px;
   }
 
   .table-top {
-    max-width: 320px;
-    height: 320px;
+    max-width: 280px;
+    height: 280px;
+    transform: rotateX(25deg);
   }
 
   .counter-number {
-    font-size: 3.5rem;
+    font-size: 3rem;
+  }
+
+  .counter-label {
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+  }
+
+  /* Assiettes plus petites sur mobile */
+  .plate {
+    width: 45px;
+    height: 45px;
+  }
+
+  .plate-inner {
+    width: 32px;
+    height: 32px;
   }
 
   .section-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 12px;
   }
 
+  /* Grille optimisée pour mobile */
   .family-grid {
-    gap: 10px;
+    gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .member-btn {
-    padding: 14px 12px;
-    font-size: 1rem;
+    padding: 12px 10px;
+    font-size: 0.95rem;
+  }
+
+  /* Emojis des boutons bien visibles */
+  .member-status {
+    font-size: 1.2rem;
   }
 
   .action-btn {
     padding: 8px 6px;
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .participant-card {
-    padding: 12px;
+    padding: 10px;
   }
 
+  /* Emojis des participants bien visibles */
   .participant-icon {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 
   .participant-name {
+    font-size: 0.95rem;
+  }
+
+  .participant-label {
+    font-size: 0.75rem;
+  }
+
+  .remove-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1.1rem;
+  }
+
+  /* Modal responsive */
+  .modal {
+    padding: 20px 15px;
+    width: 92%;
+  }
+
+  .modal-title {
+    font-size: 1.2rem;
+  }
+
+  .guest-input {
+    padding: 10px;
     font-size: 1rem;
+  }
+
+  .btn-cancel,
+  .btn-confirm {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
+
+  /* Footer responsive */
+  .reset-btn {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
+
+  /* Décorations médiévales adaptées */
+  .torch {
+    font-size: 2rem;
+  }
+
+  .participants-section::before {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    top: -20px;
+    right: 15px;
   }
 }
 
+/* Très petits écrans (< 350px) */
 @media screen and (max-width: 350px) {
+  /* Une seule colonne pour les boutons */
   .family-grid {
     grid-template-columns: 1fr;
   }
 
   .title {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
+
+  .title::before,
+  .title::after {
+    font-size: 1rem;
+  }
+
+  .table-top {
+    max-width: 250px;
+    height: 250px;
+  }
+
+  .counter-number {
+    font-size: 2.5rem;
+  }
+
+  .counter-label {
+    font-size: 0.8rem;
+  }
+
+  .plate {
+    width: 40px;
+    height: 40px;
+  }
+
+  .plate-inner {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* Support des emojis sur tous les appareils */
+* {
+  font-variant-emoji: emoji;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force l'affichage des emojis en couleur */
+.participant-icon,
+.member-status,
+.title::before,
+.title::after,
+.torch,
+.participants-section::before {
+  font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji', sans-serif;
+  display: inline-block;
 }
 
 /* 🏰⚔️ DÉCORATIONS MÉDIÉVALES CHÂTEAU - EXAGÉRÉES ⚔️🏰 */
@@ -1304,4 +1434,3 @@
     font-size: 1.8rem;
   }
 }
-

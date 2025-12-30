@@ -5,10 +5,12 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --configuration production --base-href /whos-eating/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:whos-eating-app": "node dist/whos-eating-app/server/server.mjs",
-    "deploy": "ng build --configuration production --base-href=/whos-eating/ && npx angular-cli-ghpages --dir=dist/whos-eating-app/browser"
+    "predeploy": "npm run build:prod",
+    "deploy": "npx angular-cli-ghpages --dir=dist/whos-eating-app/browser"
   },
   "private": true,
   "dependencies": {

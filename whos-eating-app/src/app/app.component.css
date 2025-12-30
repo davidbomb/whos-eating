@@ -439,32 +439,16 @@
   margin-bottom: 20px;
   background: var(--parchment);
   padding: 20px;
+  padding-top: 30px; /* Padding supplémentaire en haut */
   border: 5px double var(--medieval-brown);
   box-shadow: var(--castle-shadow);
   position: relative;
 }
 
-/* Sceaux de cire décoratifs */
-.add-section::before {
-  content: '🔱';
-  position: absolute;
-  top: -15px;
-  left: 20px;
-  font-size: 1.8rem;
-  background: var(--blood-red);
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 3px solid var(--medieval-brown);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-}
-
 .section-title {
   font-size: 1.6rem;
   margin-bottom: 15px;
+  margin-top: 8px; /* Espacement avec le sceau de cire */
   color: var(--medieval-red);
   text-align: center;
   font-weight: bold;
@@ -474,6 +458,13 @@
   font-family: 'MedievalSharp', serif;
   text-transform: uppercase;
   letter-spacing: 2px;
+  white-space: nowrap; /* Force l'affichage sur une ligne */
+  overflow: visible; /* Permet au contenu de déborder si nécessaire */
+  display: flex; /* Utiliser flexbox pour centrer */
+  align-items: center; /* Centrer verticalement */
+  justify-content: space-between; /* Espace entre les éléments - épées aux extrémités */
+  flex-wrap: nowrap; /* Ne pas permettre le retour à la ligne */
+  width: 100%; /* Prendre toute la largeur */
 }
 
 .family-grid {
@@ -1007,9 +998,21 @@
     height: 32px;
   }
 
+  /* Section d'ajout avec padding et espacement optimisés */
+  .add-section {
+    padding-top: 25px;
+  }
+
   .section-title {
     font-size: 1.2rem;
     margin-bottom: 12px;
+    margin-top: 5px;
+  }
+
+  /* Réduction de l'espacement avec les épées */
+  .title-decoration {
+    margin: 0 6px;
+    font-size: 1.1rem;
   }
 
   /* Grille optimisée pour mobile */
@@ -1095,6 +1098,11 @@
     top: -20px;
     right: 15px;
   }
+
+  /* Padding supérieur pour participants section */
+  .participants-section {
+    padding-top: 25px;
+  }
 }
 
 /* Très petits écrans (< 350px) */
@@ -1135,6 +1143,21 @@
     width: 28px;
     height: 28px;
   }
+
+  /* Padding et espacement optimisés pour très petits écrans */
+  .add-section {
+    padding-top: 22px;
+  }
+
+  .section-title {
+    margin-top: 4px;
+  }
+
+  /* Réduction maximale de l'espacement avec les épées */
+  .title-decoration {
+    margin: 0 5px;
+    font-size: 1rem;
+  }
 }
 
 /* Zone critique 351-400px - Ajustement optimal */
@@ -1153,6 +1176,7 @@
     font-size: 1.3rem;
     letter-spacing: 1.5px;
     line-height: 1.4;
+    padding-top: 2.3rem;
   }
 
   /* Emojis du titre proportionnels */
@@ -1193,6 +1217,23 @@
     height: 30px;
   }
 
+  /* CORRECTION: Titres de sections bien dimensionnés */
+  .section-title {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+    line-height: 1.5;
+    margin-bottom: 14px;
+    margin-top: 5px;
+    word-spacing: 2px;
+  }
+
+  /* CORRECTION: Décorations de titre (épées, châteaux) bien visibles */
+  .title-decoration {
+    font-size: 1.15rem;
+    margin: 0 6px;
+    display: inline-block;
+  }
+
   /* Grille 2 colonnes avec espacement optimal */
   .family-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -1227,12 +1268,20 @@
     font-size: 0.78rem;
   }
 
-  /* Couronne royale visible */
+  /* CORRECTION: Couronne royale bien visible */
   .participants-section::before {
     font-size: 1.6rem;
     width: 42px;
     height: 42px;
     top: -21px;
+  }
+
+  /* CORRECTION: Sceau de cire dans add-section */
+  .add-section::before {
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    top: -12px;
   }
 
   /* Modal bien dimensionné */
@@ -1245,13 +1294,52 @@
     font-size: 1.25rem;
   }
 
-  /* Décorations médiévales proportionnelles */
+  /* CORRECTION: Décorations médiévales proportionnelles */
   .torch {
     font-size: 2.2rem;
   }
 
   .banner-flag {
     font-size: 3.2rem;
+  }
+
+  .candelabra {
+    font-size: 2.2rem;
+  }
+
+  .trumpet {
+    font-size: 2rem;
+  }
+
+  .royal-seal {
+    font-size: 2.5rem;
+  }
+
+  /* CORRECTION: Ornements de pieds de section */
+  .footer-ornament {
+    font-size: 1.3rem;
+    margin: 0 12px;
+  }
+
+  /* CORRECTION: Diamants des cartes participants */
+  .participant-card::before {
+    font-size: 1.3rem;
+    left: -10px;
+  }
+
+  /* CORRECTION: Boutons reset */
+  .reset-btn {
+    padding: 12px 22px;
+    font-size: 0.98rem;
+  }
+
+  .reset-icon {
+    font-size: 1.15rem;
+  }
+
+  /* CORRECTION: Fondations du château */
+  .foundation-stone {
+    font-size: 1.6rem;
   }
 }
 
@@ -1390,7 +1478,7 @@
 .title-decoration {
   display: inline-block;
   margin: 0 10px;
-  font-size: 1.3rem;
+  font-size: 1.5rem;
 }
 
 /* === PIEDS DE SECTION === */

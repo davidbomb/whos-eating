@@ -25,6 +25,11 @@ export class AppComponent implements OnDestroy {
   easterEggActivated: boolean = false;
   private easterEggAudio?: HTMLAudioElement;
 
+  // 🔥 Animation explosive de la bougie
+  candleClicked: boolean = false;
+  showCandleParticles: boolean = false;
+  showCandleShockwave: boolean = false;
+
   constructor(private dataService: DataService) {
     // S'abonner aux changements en temps réel depuis Firebase
     this.dataService.participants$.subscribe(participants => {
@@ -149,6 +154,26 @@ export class AppComponent implements OnDestroy {
     } else {
       this.stopEasterEggMusic();
     }
+  }
+
+  // 🔥 Animation explosive de la bougie + Musique Easter Egg
+  onCandleClick() {
+    console.log('🔥 BOUGIE CLIQUÉE - EXPLOSION + MUSIQUE !');
+
+    // Déclencher l'animation explosive
+    this.candleClicked = true;
+    this.showCandleParticles = true;
+    this.showCandleShockwave = true;
+
+    // IMPORTANT : Activer/désactiver la musique
+    this.toggleEasterEggMusic();
+
+    // Réinitialiser l'animation après 3 secondes pour permettre de refaire l'explosion
+    setTimeout(() => {
+      this.candleClicked = false;
+      this.showCandleParticles = false;
+      this.showCandleShockwave = false;
+    }, 1500);
   }
 
   private playEasterEggMusic() {

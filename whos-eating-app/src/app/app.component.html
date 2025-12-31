@@ -185,8 +185,28 @@
     <div
       class="candle-decoration candle-decoration-right"
       [class.candle-glowing]="easterEggActivated"
-      (click)="toggleEasterEggMusic()">
+      [class.candle-clicked]="candleClicked"
+      (click)="onCandleClick()">
       🕯️
+    </div>
+
+    <!-- 🎆 Particules explosives autour de la bougie 🎆 -->
+    <div class="candle-particles" *ngIf="showCandleParticles">
+      <div class="particle">✨</div>
+      <div class="particle">💥</div>
+      <div class="particle">🔥</div>
+      <div class="particle">⭐</div>
+      <div class="particle">💫</div>
+      <div class="particle">🌟</div>
+      <div class="particle">✨</div>
+      <div class="particle">💥</div>
+    </div>
+
+    <!-- 💫 Ondes de choc circulaires 💫 -->
+    <div class="candle-shockwave" *ngIf="showCandleShockwave">
+      <div class="shockwave-ring"></div>
+      <div class="shockwave-ring"></div>
+      <div class="shockwave-ring"></div>
     </div>
   </div>
 </div>

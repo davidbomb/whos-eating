@@ -1,0 +1,45 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Background circle - bouclier médiéval -->
+  <rect x="4" y="4" width="56" height="56" fill="#8b0000" rx="8"/>
+  <rect x="8" y="8" width="48" height="48" fill="#a52a2a" rx="6"/>
+
+  <!-- Bordure dorée -->
+  <rect x="10" y="10" width="44" height="44" fill="none" stroke="#d4af37" stroke-width="2" rx="4"/>
+
+  <!-- Assiette centrale en argent/étain -->
+  <circle cx="32" cy="32" r="14" fill="#c0c0c0"/>
+  <circle cx="32" cy="32" r="12" fill="#d3d3d3"/>
+  <circle cx="32" cy="32" r="10" fill="#e8e8e8"/>
+
+  <!-- Reflets sur l'assiette -->
+  <ellipse cx="28" cy="28" rx="4" ry="3" fill="#ffffff" opacity="0.6"/>
+
+  <!-- Fourchette à gauche (pixel art) -->
+  <rect x="16" y="24" width="2" height="16" fill="#8b7355"/>
+  <rect x="14" y="24" width="2" height="4" fill="#8b7355"/>
+  <rect x="18" y="24" width="2" height="4" fill="#8b7355"/>
+  <rect x="14" y="22" width="2" height="2" fill="#8b7355"/>
+  <rect x="18" y="22" width="2" height="2" fill="#8b7355"/>
+
+  <!-- Couteau à droite (pixel art) -->
+  <rect x="46" y="24" width="2" height="16" fill="#8b7355"/>
+  <rect x="44" y="24" width="4" height="6" fill="#a9a9a9"/>
+  <rect x="44" y="22" width="4" height="2" fill="#c0c0c0"/>
+
+  <!-- Couronne décorative en haut -->
+  <rect x="28" y="12" width="2" height="3" fill="#d4af37"/>
+  <rect x="30" y="11" width="2" height="4" fill="#ffd700"/>
+  <rect x="32" y="10" width="2" height="5" fill="#d4af37"/>
+  <rect x="34" y="11" width="2" height="4" fill="#ffd700"/>
+  <rect x="36" y="12" width="2" height="3" fill="#d4af37"/>
+
+  <!-- Base de la couronne -->
+  <rect x="28" y="14" width="10" height="2" fill="#d4af37"/>
+
+  <!-- Détails décoratifs - coins du bouclier -->
+  <rect x="12" y="12" width="2" height="2" fill="#d4af37"/>
+  <rect x="50" y="12" width="2" height="2" fill="#d4af37"/>
+  <rect x="12" y="50" width="2" height="2" fill="#d4af37"/>
+  <rect x="50" y="50" width="2" height="2" fill="#d4af37"/>
+</svg>
+

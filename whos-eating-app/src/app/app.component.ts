@@ -10,7 +10,7 @@ import { DataService, Participant } from './services/data.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnDestroy {
-  title = 'Qui Mange Ce Midi ? 🍽️';
+  title = 'Qui Mange Ce Midi ?';
 
   familyMembers = ['Papa', 'Maman', 'David', 'Apo', 'Clovis', 'Julien'];
   participants: Participant[] = [];

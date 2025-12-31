@@ -12,6 +12,9 @@ import { DataService, Participant } from './services/data.service';
 export class AppComponent implements OnDestroy {
   title = 'Qui Mange Ce Midi ?';
 
+  // Mode jour/nuit
+  isNightMode: boolean = false;
+
   familyMembers = ['Papa', 'Maman', 'David', 'Apo', 'Clovis', 'Julien'];
   participants: Participant[] = [];
   guestName: string = '';
@@ -36,6 +39,14 @@ export class AppComponent implements OnDestroy {
       month: 'long',
       day: 'numeric'
     });
+  }
+
+  get currentTitle(): string {
+    return this.isNightMode ? 'Qui Mange Ce Soir ?' : 'Qui Mange Ce Midi ?';
+  }
+
+  toggleNightMode() {
+    this.isNightMode = !this.isNightMode;
   }
 
   getPlates(): Array<{top: number, left: number, transform: string}> {

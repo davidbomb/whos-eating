@@ -13,6 +13,19 @@
   --blood-red: #8b0000;
   --dragon-fire: #ff4500;
   --castle-shadow: 6px 6px 0px rgba(0, 0, 0, 0.4);
+
+  /* Palette mode nuit CHALEUREUSE - ambiance chandelles */
+  --night-bg: #2a1a0f;
+  --night-bg-dark: #1f1409;
+  --night-parchment: #3d2817;
+  --night-parchment-dark: #2d1f12;
+  --night-gold: #ffb347;
+  --night-silver: #d4a574;
+  --night-blue: #b85618;
+  --night-orange: #df5a27;
+  --night-amber: #f4a460;
+  --night-text: #edd39e;
+  --night-glow: rgba(255, 140, 66, 0.3);
 }
 
 .container {
@@ -1765,5 +1778,393 @@
   /* Ajuster aussi le candélabre gauche */
   .candelabra-left {
     bottom: 40px;
+  }
+}
+
+/* 🌙 TOGGLE JOUR/NUIT 🌙 */
+.night-mode-toggle {
+  position: absolute !important;
+  top: -60px !important;
+  right: -10px !important;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  z-index: 20;
+  background: rgb(255, 255, 255);
+  padding: 4px 6px;
+  border-radius: 20px;
+  border: 2px solid var(--medieval-gold);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.night-mode-toggle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+  opacity: 1;
+}
+
+.toggle-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+
+.night-mode-toggle:hover .toggle-icon {
+  transform: rotate(20deg) scale(1.1);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 32px;
+  height: 18px;
+  background: linear-gradient(135deg, #f4d175 0%, #ffd16f 100%);
+  border-radius: 9px;
+  border: 1.5px solid var(--medieval-brown);
+  transition: all 0.4s ease;
+}
+
+.toggle-switch.active {
+  background: linear-gradient(135deg, #b32706 0%, #ec5b1e 100%);
+}
+
+.toggle-slider {
+  position: absolute;
+  top: 1.5px;
+  left: 1.5px;
+  width: 13px;
+  height: 13px;
+  background: radial-gradient(circle, #fff 0%, #f0f0f0 100%);
+  border-radius: 50%;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.toggle-switch.active .toggle-slider {
+  transform: translateX(14px);
+  background: radial-gradient(circle, #ffd700 0%, #f0c020 100%);
+}
+
+.toggle-label {
+  /* Label retiré pour être plus discret */
+  display: none;
+}
+
+/* 🌙 MODE NUIT - TRANSFORMATIONS CHALEUREUSES 🌙 */
+.night-mode {
+  /* Bordures chaudes brun foncé */
+  border-left-color: #3d2817;
+  border-right-color: #3d2817;
+  box-shadow:
+    inset 5px 0 15px rgba(0, 0, 0, 0.6),
+    inset -5px 0 15px rgba(0, 0, 0, 0.6),
+    inset 0 0 50px rgba(255, 140, 66, 0.1);
+  background:
+    linear-gradient(90deg,
+      rgba(61, 40, 23, 0.2) 0%,
+      transparent 10%,
+      transparent 90%,
+      rgba(61, 40, 23, 0.2) 100%
+    );
+}
+
+.night-mode .night-mode-toggle {
+  background: rgba(61, 40, 23, 0.9);
+  border-color: var(--night-gold);
+}
+
+.night-mode .night-mode-toggle:hover {
+  opacity: 1;
+}
+
+.night-mode .toggle-label {
+  color: var(--night-text);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Header en mode nuit CHALEUREUX */
+.night-mode .header {
+  background: linear-gradient(135deg, #3d2817 0%, #4a3326 100%);
+  border-image: linear-gradient(
+    135deg,
+    #ffb347 0%,
+    #ff8c42 25%,
+    #f4a460 50%,
+    #ffa07a 75%,
+    #ffb347 100%
+  ) 1;
+  outline-color: #2d1f12;
+  box-shadow:
+    0 0 0 2px #ff8c42,
+    0 0 0 12px rgba(255, 140, 66, 0.15),
+    inset 0 0 40px rgba(255, 140, 66, 0.2),
+    0 0 30px rgba(255, 140, 66, 0.3);
+  filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.6))
+          drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
+}
+
+.night-mode .header::before {
+  background:
+    linear-gradient(135deg, transparent 0%, transparent 48%, #ff8c42 48%, #ff8c42 52%, transparent 52%),
+    linear-gradient(45deg, #ffa07a 0%, #ff8c42 100%);
+  box-shadow:
+    inset 2px 2px 4px rgba(255, 140, 66, 0.5),
+    2px 2px 6px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(255, 140, 66, 0.4);
+}
+
+.night-mode .header::after {
+  background:
+    linear-gradient(-45deg, transparent 0%, transparent 48%, #ff8c42 48%, #ff8c42 52%, transparent 52%),
+    linear-gradient(135deg, #ffb347 0%, #ff8c42 100%);
+  box-shadow:
+    inset -2px -2px 4px rgba(255, 140, 66, 0.5),
+    -2px -2px 6px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(255, 140, 66, 0.4);
+}
+
+.night-mode .corner-ornament::before,
+.night-mode .corner-ornament::after {
+  background: linear-gradient(135deg, #ffb347 0%, #ff8c42 100%);
+  box-shadow: 0 0 12px rgba(255, 140, 66, 0.6);
+}
+
+.night-mode .title {
+  color: var(--night-text);
+  text-shadow:
+    2px 2px 0px rgba(255, 140, 66, 0.6),
+    -1px -1px 0px rgba(0, 0, 0, 0.5),
+    0 0 20px rgba(255, 140, 66, 0.5);
+}
+
+.night-mode .date {
+  color: var(--night-silver);
+  text-shadow:
+    2px 2px 0px rgba(255, 140, 66, 0.4),
+    -1px -1px 0px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(255, 140, 66, 0.3);
+}
+
+/* Table en mode nuit CHALEUREUSE */
+.night-mode .table-top {
+  background:
+    linear-gradient(135deg, #3d2817 0%, #4a3326 25%, #3d2817 50%, #4a3326 75%, #3d2817 100%);
+  border-color: #2d1f12;
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.7),
+    inset 0 0 60px rgba(0, 0, 0, 0.5),
+    inset 0 0 100px rgba(255, 140, 66, 0.15),
+    0 0 0 4px var(--night-orange),
+    0 0 30px rgba(255, 140, 66, 0.3);
+}
+
+.night-mode .counter-number {
+  color: var(--night-gold);
+  text-shadow:
+    4px 4px 0px #2d1f12,
+    0 0 30px rgba(255, 179, 71, 0.9),
+    0 0 50px rgba(255, 140, 66, 0.7),
+    0 0 70px rgba(255, 107, 53, 0.5);
+}
+
+@keyframes glowNightWarm {
+  from {
+    text-shadow:
+      4px 4px 0px #2d1f12,
+      0 0 30px rgba(255, 179, 71, 0.9),
+      0 0 50px rgba(255, 140, 66, 0.7),
+      0 0 70px rgba(255, 107, 53, 0.5);
+  }
+  to {
+    text-shadow:
+      4px 4px 0px #2d1f12,
+      0 0 40px rgba(255, 179, 71, 1),
+      0 0 60px rgba(255, 140, 66, 0.9),
+      0 0 80px rgba(255, 107, 53, 0.7);
+  }
+}
+
+.night-mode .counter-number {
+  animation: glowNightWarm 2s ease-in-out infinite alternate;
+}
+
+.night-mode .counter-label {
+  color: var(--night-silver);
+  text-shadow:
+    3px 3px 6px rgba(0, 0, 0, 0.9),
+    0 0 10px rgba(255, 140, 66, 0.3);
+}
+
+/* Sections en mode nuit CHALEUREUSES */
+.night-mode .add-section {
+  background: linear-gradient(135deg, #3d2817 0%, #4a3326 100%);
+  border-color: #2d1f12;
+  box-shadow:
+    6px 6px 0px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 140, 66, 0.2);
+}
+
+.night-mode .section-title {
+  color: var(--night-orange);
+  text-shadow:
+    2px 2px 0px var(--night-gold),
+    3px 3px 6px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(255, 140, 66, 0.4);
+}
+
+.night-mode .participants-section {
+  background: linear-gradient(135deg, #2d1f12 0%, #3d2817 100%);
+  border-color: #2d1f12;
+  box-shadow:
+    6px 6px 0px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 140, 66, 0.2);
+}
+
+/* Boutons en mode nuit CHALEUREUX */
+.night-mode .member-btn {
+  background: linear-gradient(135deg, #cc5500 0%, #994400 100%);
+  color: var(--night-gold);
+  border-color: var(--night-gold);
+  box-shadow:
+    6px 6px 0px rgba(0, 0, 0, 0.4),
+    inset 0 0 20px rgba(0, 0, 0, 0.3),
+    0 0 15px rgba(255, 140, 66, 0.2);
+}
+
+.night-mode .member-btn:hover:not(:disabled) {
+  box-shadow:
+    8px 8px 0px rgba(0, 0, 0, 0.4),
+    inset 0 0 30px rgba(0, 0, 0, 0.2),
+    0 0 25px rgba(255, 140, 66, 0.4);
+}
+
+.night-mode .member-btn.registered {
+  background: linear-gradient(135deg, #5a4a1a 0%, #3d3010 100%);
+  color: var(--night-gold);
+}
+
+/* Cartes participants en mode nuit CHALEUREUSES */
+.night-mode .participant-card {
+  background: linear-gradient(135deg, #4a3326 0%, #3d2817 100%);
+  border-color: #2d1f12;
+  border-left-color: var(--night-orange);
+  box-shadow:
+    4px 4px 0px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(255, 140, 66, 0.15);
+}
+
+.night-mode .participant-card:hover {
+  box-shadow:
+    6px 6px 0px rgba(0, 0, 0, 0.35),
+    0 0 15px rgba(255, 140, 66, 0.25);
+}
+
+.night-mode .participant-name {
+  color: var(--night-text);
+  text-shadow:
+    1px 1px 2px rgba(0, 0, 0, 0.5),
+    0 0 8px rgba(255, 140, 66, 0.2);
+}
+
+.night-mode .participant-label {
+  color: var(--night-silver);
+}
+
+.night-mode .participant-card::before {
+  color: var(--night-gold);
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 10px rgba(255, 140, 66, 0.5);
+}
+
+/* Modal en mode nuit CHALEUREUX */
+.night-mode .modal {
+  background: linear-gradient(135deg, #3d2817 0%, #4a3326 100%);
+  border-color: #2d1f12;
+  box-shadow:
+    0 15px 60px rgba(0, 0, 0, 0.8),
+    inset 0 0 40px rgba(255, 140, 66, 0.15),
+    0 0 30px rgba(255, 140, 66, 0.2);
+}
+
+.night-mode .modal-title {
+  color: var(--night-orange);
+  text-shadow:
+    2px 2px 0px var(--night-gold),
+    0 0 15px rgba(255, 140, 66, 0.4);
+}
+
+.night-mode .guest-input {
+  background: #2d1f12;
+  border-color: #1f1409;
+  color: var(--night-text);
+}
+
+.night-mode .guest-input::placeholder {
+  color: var(--night-silver);
+  opacity: 0.6;
+}
+
+.night-mode .guest-input:focus {
+  border-color: var(--night-gold);
+  box-shadow:
+    inset 0 2px 6px rgba(0, 0, 0, 0.4),
+    0 0 0 4px rgba(255, 179, 71, 0.3),
+    0 0 15px rgba(255, 140, 66, 0.3);
+}
+
+/* Ajustements footer et ornements CHALEUREUX */
+.night-mode .footer-ornament {
+  color: var(--night-gold);
+  text-shadow: 0 0 10px rgba(255, 140, 66, 0.5);
+}
+
+.night-mode .foundation-stone {
+  color: #5a4a3d;
+  text-shadow: 0 0 5px rgba(255, 140, 66, 0.2);
+}
+
+/* Effets de lueur chaleureuse */
+.night-mode .torch,
+.night-mode .candelabra,
+.night-mode .candle-decoration {
+  filter: drop-shadow(0 0 25px rgba(255, 140, 66, 0.9))
+          drop-shadow(0 0 40px rgba(255, 107, 53, 0.6)) !important;
+}
+
+.night-mode .counter-section::before,
+.night-mode .counter-section::after {
+  color: var(--night-gold);
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(255, 140, 66, 0.6);
+}
+
+/* Responsive pour le toggle */
+@media screen and (max-width: 500px) {
+  .night-mode-toggle {
+    top: 8px;
+    right: 8px;
+    padding: 3px 5px;
+    gap: 3px;
+  }
+
+  .toggle-icon {
+    font-size: 1rem;
+  }
+
+  .toggle-switch {
+    width: 28px;
+    height: 16px;
+  }
+
+  .toggle-slider {
+    width: 11px;
+    height: 11px;
+  }
+
+  .toggle-switch.active .toggle-slider {
+    transform: translateX(12px);
   }
 }

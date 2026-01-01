@@ -2,10 +2,11 @@ import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService, Participant } from './services/data.service';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ShoppingListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -14,6 +15,9 @@ export class AppComponent implements OnDestroy {
 
   // Mode jour/nuit
   isNightMode: boolean = false;
+
+  // Navigation
+  showShoppingList: boolean = false;
 
   familyMembers = ['Papa', 'Maman', 'David', 'Apo', 'Clovis', 'Julien'];
   participants: Participant[] = [];
@@ -248,6 +252,10 @@ export class AppComponent implements OnDestroy {
       this.easterEggAudio.currentTime = 0; // Remettre au début
       console.log('🎵 Musique arrêtée');
     }
+  }
+
+  toggleShoppingList(): void {
+    this.showShoppingList = !this.showShoppingList;
   }
 
   ngOnDestroy() {

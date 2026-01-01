@@ -1,212 +1,230 @@
 <div class="container" [class.night-mode]="isNightMode">
-  <!-- 🏰 DÉCORATION CHÂTEAU HAUT 🏰 -->
-  <div class="castle-decoration-top">
-    <div class="torch torch-left">🕯️</div>
-    <div class="castle-banner">
-      <div class="banner-flag">⚜️</div>
-    </div>
-    <div class="torch torch-right">🕯️</div>
-  </div>
-
-  <header class="header">
-    <!-- Switch Jour/Nuit -->
-    <div class="night-mode-toggle" (click)="toggleNightMode()" title="Basculer entre midi et soir">
-      <div class="toggle-icon">{{ isNightMode ? '🌙' : '☀️' }}</div>
-      <div class="toggle-switch" [class.active]="isNightMode">
-        <div class="toggle-slider"></div>
+  <!-- Affichage conditionnel : Page principale ou Liste de courses -->
+  <div *ngIf="!showShoppingList">
+    <!-- 🏰 DÉCORATION CHÂTEAU HAUT 🏰 -->
+    <div class="castle-decoration-top">
+      <div class="torch torch-left">🕯️</div>
+      <div class="castle-banner">
+        <div class="banner-flag">⚜️</div>
       </div>
+      <div class="torch torch-right">🕯️</div>
     </div>
 
-    <!-- Ornements de coins médiévaux -->
-    <div class="corner-ornament corner-top-left"></div>
-    <div class="corner-ornament corner-top-right"></div>
-    <div class="corner-ornament corner-bottom-left"></div>
-    <div class="corner-ornament corner-bottom-right"></div>
+    <header class="header">
+      <!-- Switch Jour/Nuit -->
+      <div class="night-mode-toggle" (click)="toggleNightMode()" title="Basculer entre midi et soir">
+        <div class="toggle-icon">{{ isNightMode ? '🌙' : '☀️' }}</div>
+        <div class="toggle-switch" [class.active]="isNightMode">
+          <div class="toggle-slider"></div>
+        </div>
+      </div>
 
-    <h1 class="title">{{ currentTitle }}</h1>
-    <div class="date">{{ getCurrentDate() }}</div>
-  </header>
+      <!-- Bouton Liste de Courses -->
+      <div class="shopping-list-toggle" (click)="toggleShoppingList()" title="Liste de courses">
+        <span class="shopping-icon">🛒</span>
+      </div>
 
-  <div class="counter-section">
-    <!-- Bannières de festin -->
+      <!-- Ornements de coins médiévaux -->
+      <div class="corner-ornament corner-top-left"></div>
+      <div class="corner-ornament corner-top-right"></div>
+      <div class="corner-ornament corner-bottom-left"></div>
+      <div class="corner-ornament corner-bottom-right"></div>
 
-    <div class="table-container">
-      <div class="table-top">
-        <div class="table-wood-grain"></div>
-        <div class="counter-number">{{ totalCount }}</div>
-        <div class="counter-label">convive{{ totalCount > 1 ? 's' : '' }}</div>
+      <h1 class="title">{{ currentTitle }}</h1>
+      <div class="date">{{ getCurrentDate() }}</div>
+    </header>
 
-        <!-- Assiettes autour de la table - positionnement dynamique -->
-        <div class="plates-container">
-          <div
-            *ngFor="let plate of getPlates(); let i = index"
-            class="plate"
-            [style.top.%]="plate.top"
-            [style.left.%]="plate.left"
-            [style.transform]="plate.transform">
-            <div class="plate-inner"></div>
+    <div class="counter-section">
+      <!-- Bannières de festin -->
+
+      <div class="table-container">
+        <div class="table-top">
+          <div class="table-wood-grain"></div>
+          <div class="counter-number">{{ totalCount }}</div>
+          <div class="counter-label">convive{{ totalCount > 1 ? 's' : '' }}</div>
+
+          <!-- Assiettes autour de la table - positionnement dynamique -->
+          <div class="plates-container">
+            <div
+              *ngFor="let plate of getPlates(); let i = index"
+              class="plate"
+              [style.top.%]="plate.top"
+              [style.left.%]="plate.left"
+              [style.transform]="plate.transform">
+              <div class="plate-inner"></div>
+            </div>
           </div>
         </div>
       </div>
+
+      <!-- Candélabre gauche - Easter Egg -->
+      <div class="candelabra candelabra-left"
+           [class.candle-glowing]="easterEggActivated"
+           (click)="toggleEasterEggMusic()"
+           title="🎵 Cliquez pour une surprise...">🕯️</div>
     </div>
 
-    <!-- Candélabre gauche - Easter Egg -->
-    <div class="candelabra candelabra-left"
-         [class.candle-glowing]="easterEggActivated"
-         (click)="toggleEasterEggMusic()"
-         title="🎵 Cliquez pour une surprise...">🕯️</div>
-  </div>
+    <div class="add-section">
+      <!-- Couronne royale -->
 
-  <div class="add-section">
-    <!-- Couronne royale -->
+      <h2 class="section-title">
+        <span class="title-decoration">🏰</span>
+        Qui vient manger ?
+        <span class="title-decoration">🏰</span>
+      </h2>
 
-    <h2 class="section-title">
-      <span class="title-decoration">🏰</span>
-      Qui vient manger ?
-      <span class="title-decoration">🏰</span>
-    </h2>
-
-    <div class="family-grid">
-      <div *ngFor="let member of familyMembers" class="member-card">
-        <button
-          class="member-btn"
-          [class.registered]="hasMemberRegistered(member)"
-          [disabled]="hasMemberRegistered(member)"
-          (click)="addMember(member)">
-          <span class="member-name">{{ member }}</span>
-          <span class="member-status">{{ hasMemberRegistered(member) ? '⚜️' : '➕' }}</span>
-        </button>
-
-        <div class="member-actions" *ngIf="hasMemberRegistered(member)">
-          <button class="action-btn guest-add-btn" (click)="openGuestForm(member)" title="Ajouter un invité">
-            🎭+
+      <div class="family-grid">
+        <div *ngFor="let member of familyMembers" class="member-card">
+          <button
+            class="member-btn"
+            [class.registered]="hasMemberRegistered(member)"
+            [disabled]="hasMemberRegistered(member)"
+            (click)="addMember(member)">
+            <span class="member-name">{{ member }}</span>
+            <span class="member-status">{{ hasMemberRegistered(member) ? '⚜️' : '➕' }}</span>
           </button>
-          <button class="action-btn member-remove-btn" (click)="removeMember(member)" title="Se désinscrire">
-            ⚔️
-          </button>
-        </div>
-      </div>
-    </div>
 
-    <!-- Pieds de section médiévaux -->
-    <div class="section-footer">
-      <span class="footer-ornament">✦</span>
-      <span class="footer-ornament">✦</span>
-      <span class="footer-ornament">✦</span>
-    </div>
-  </div>
-
-  <div class="participants-section" *ngIf="participants.length > 0">
-    <!-- Trompettes d'annonce -->
-    <div class="trumpet trumpet-left">🎺</div>
-    <div class="trumpet trumpet-right">🎺</div>
-
-    <h2 class="section-title">
-      <span class="title-decoration"></span>
-      Participants ({{ totalCount }})
-      <span class="title-decoration"></span>
-    </h2>
-
-    <div class="participants-list">
-      <div *ngFor="let participant of participants" class="participant-card">
-        <div class="participant-info">
-          <span class="participant-icon">{{ participant.isGuest ? '🎭' : '🫅🏻' }}</span>
-          <div class="participant-details">
-            <span class="participant-name">{{ participant.name }}</span>
-            <span class="participant-label" *ngIf="participant.isGuest">
-              (invité de {{ participant.addedBy }})
-            </span>
+          <div class="member-actions" *ngIf="hasMemberRegistered(member)">
+            <button class="action-btn guest-add-btn" (click)="openGuestForm(member)" title="Ajouter un invité">
+              🎭+
+            </button>
+            <button class="action-btn member-remove-btn" (click)="removeMember(member)" title="Se désinscrire">
+              ⚔️
+            </button>
           </div>
         </div>
-        <button class="remove-btn" (click)="removeParticipant(participant)" title="Retirer">⚔️</button>
+      </div>
+
+      <!-- Pieds de section médiévaux -->
+      <div class="section-footer">
+        <span class="footer-ornament">✦</span>
+        <span class="footer-ornament">✦</span>
+        <span class="footer-ornament">✦</span>
       </div>
     </div>
 
+    <div class="participants-section" *ngIf="participants.length > 0">
+      <!-- Trompettes d'annonce -->
+      <div class="trumpet trumpet-left">🎺</div>
+      <div class="trumpet trumpet-right">🎺</div>
+
+      <h2 class="section-title">
+        <span class="title-decoration"></span>
+        Participants ({{ totalCount }})
+        <span class="title-decoration"></span>
+      </h2>
+
+      <div class="participants-list">
+        <div *ngFor="let participant of participants" class="participant-card">
+          <div class="participant-info">
+            <span class="participant-icon">{{ participant.isGuest ? '🎭' : '🫅🏻' }}</span>
+            <div class="participant-details">
+              <span class="participant-name">{{ participant.name }}</span>
+              <span class="participant-label" *ngIf="participant.isGuest">
+                (invité de {{ participant.addedBy }})
+              </span>
+            </div>
+          </div>
+          <button class="remove-btn" (click)="removeParticipant(participant)" title="Retirer">⚔️</button>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-overlay" *ngIf="showGuestForm" (click)="cancelGuestForm()">
+      <div class="modal" (click)="$event.stopPropagation()">
+        <!-- Bannière du modal -->
+        <div class="modal-banner">
+        </div>
+
+        <h3 class="modal-title">
+          Invité de {{ selectedMember }}
+        </h3>
+
+        <input
+          type="text"
+          class="guest-input"
+          [(ngModel)]="guestName"
+          placeholder="Nom de l'invité"
+          (keyup.enter)="addGuest(selectedMember)"
+          autofocus>
+
+        <div class="modal-buttons">
+          <button class="btn-cancel" (click)="cancelGuestForm()">
+            <span class="btn-icon">✕</span>
+            Annuler
+          </button>
+          <button class="btn-confirm" (click)="addGuest(selectedMember)" [disabled]="!guestName.trim()">
+            <span class="btn-icon">⚜️</span>
+            Ajouter
+          </button>
+        </div>
+
+        <!-- Décoration bas modal -->
+        <div class="modal-decoration">
+          <span>✦</span>
+          <span>✦</span>
+          <span>✦</span>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer" *ngIf="participants.length > 0">
+      <div class="footer-decoration">
+      </div>
+      <button class="reset-btn" (click)="resetDay()">
+        <span class="reset-icon">⚔️</span>
+        Réinitialiser le Festin
+      </button>
+    </footer>
+
+    <!-- 🏰 DÉCORATION CHÂTEAU BAS 🏰 -->
+    <div class="castle-decoration-bottom">
+      <div class="castle-foundation">
+        <span class="foundation-stone">▪️</span>
+        <span class="foundation-stone">▪️</span>
+        <span class="foundation-stone">▪️</span>
+        <span class="foundation-stone">▪️</span>
+        <span class="foundation-stone">▪️</span>
+      </div>
+
+      <!-- Bougie droite décorative avec easter egg -->
+      <div
+        class="candle-decoration candle-decoration-right"
+        [class.candle-glowing]="easterEggActivated"
+        [class.candle-clicked]="candleClicked"
+        (click)="onCandleClick()">
+        🕯️
+      </div>
+
+      <!-- 🎆 Particules explosives autour de la bougie 🎆 -->
+      <div class="candle-particles" *ngIf="showCandleParticles">
+        <div class="particle">✨</div>
+        <div class="particle">💥</div>
+        <div class="particle">🔥</div>
+        <div class="particle">⭐</div>
+        <div class="particle">💫</div>
+        <div class="particle">🌟</div>
+        <div class="particle">✨</div>
+        <div class="particle">💥</div>
+      </div>
+
+      <!-- 💫 Ondes de choc circulaires 💫 -->
+      <div class="candle-shockwave" *ngIf="showCandleShockwave">
+        <div class="shockwave-ring"></div>
+        <div class="shockwave-ring"></div>
+        <div class="shockwave-ring"></div>
+      </div>
+    </div>
   </div>
 
-  <div class="modal-overlay" *ngIf="showGuestForm" (click)="cancelGuestForm()">
-    <div class="modal" (click)="$event.stopPropagation()">
-      <!-- Bannière du modal -->
-      <div class="modal-banner">
-      </div>
-
-      <h3 class="modal-title">
-        Invité de {{ selectedMember }}
-      </h3>
-
-      <input
-        type="text"
-        class="guest-input"
-        [(ngModel)]="guestName"
-        placeholder="Nom de l'invité"
-        (keyup.enter)="addGuest(selectedMember)"
-        autofocus>
-
-      <div class="modal-buttons">
-        <button class="btn-cancel" (click)="cancelGuestForm()">
-          <span class="btn-icon">✕</span>
-          Annuler
-        </button>
-        <button class="btn-confirm" (click)="addGuest(selectedMember)" [disabled]="!guestName.trim()">
-          <span class="btn-icon">⚜️</span>
-          Ajouter
-        </button>
-      </div>
-
-      <!-- Décoration bas modal -->
-      <div class="modal-decoration">
-        <span>✦</span>
-        <span>✦</span>
-        <span>✦</span>
-      </div>
+  <!-- 🛒 LISTE DE COURSES -->
+  <div *ngIf="showShoppingList" class="shopping-list-page">
+    <div class="shopping-list-header-bar">
+      <button (click)="toggleShoppingList()" class="back-btn" title="Retour">
+        ← Retour
+      </button>
     </div>
-  </div>
-
-  <footer class="footer" *ngIf="participants.length > 0">
-    <div class="footer-decoration">
-    </div>
-    <button class="reset-btn" (click)="resetDay()">
-      <span class="reset-icon">⚔️</span>
-      Réinitialiser le Festin
-    </button>
-  </footer>
-
-  <!-- 🏰 DÉCORATION CHÂTEAU BAS 🏰 -->
-  <div class="castle-decoration-bottom">
-    <div class="castle-foundation">
-      <span class="foundation-stone">▪️</span>
-      <span class="foundation-stone">▪️</span>
-      <span class="foundation-stone">▪️</span>
-      <span class="foundation-stone">▪️</span>
-      <span class="foundation-stone">▪️</span>
-    </div>
-
-    <!-- Bougie droite décorative avec easter egg -->
-    <div
-      class="candle-decoration candle-decoration-right"
-      [class.candle-glowing]="easterEggActivated"
-      [class.candle-clicked]="candleClicked"
-      (click)="onCandleClick()">
-      🕯️
-    </div>
-
-    <!-- 🎆 Particules explosives autour de la bougie 🎆 -->
-    <div class="candle-particles" *ngIf="showCandleParticles">
-      <div class="particle">✨</div>
-      <div class="particle">💥</div>
-      <div class="particle">🔥</div>
-      <div class="particle">⭐</div>
-      <div class="particle">💫</div>
-      <div class="particle">🌟</div>
-      <div class="particle">✨</div>
-      <div class="particle">💥</div>
-    </div>
-
-    <!-- 💫 Ondes de choc circulaires 💫 -->
-    <div class="candle-shockwave" *ngIf="showCandleShockwave">
-      <div class="shockwave-ring"></div>
-      <div class="shockwave-ring"></div>
-      <div class="shockwave-ring"></div>
-    </div>
+    <app-shopping-list></app-shopping-list>
   </div>
 </div>

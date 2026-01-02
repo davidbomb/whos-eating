@@ -43,7 +43,7 @@
         class="delete-button"
         title="Supprimer"
       >
-        🗑️
+        🪄️
       </button>
     </div>
   </div>
@@ -57,9 +57,8 @@
     <button
       (click)="openConfirmModal()"
       class="clear-button"
-      [disabled]="allItemsUnchecked"
     >
-      🧙🏻‍♂️ Nettoyer les articles cochés
+      🧙🏻‍ Vider toute la liste
     </button>
   </div>
 
@@ -68,18 +67,18 @@
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
         <span style="font-size: 2rem">🔮</span>
-        <h3> Confirmation Requise </h3>
+        <h3>Confirmation Requise</h3>
         <span style="font-size: 2rem">🔮</span>
-
       </div>
       <div class="modal-body">
-        <p>Cette magie noire est irréversible</p>
+        <p>Êtes-vous sûr de vouloir supprimer TOUS les articles de la liste ?</p>
+        <p class="modal-warning">Cette magie noire est irréversible !</p>
       </div>
       <div class="modal-actions">
         <button class="modal-cancel-button" (click)="closeConfirmModal()">
           ❌ Annuler
         </button>
-        <button class="modal-confirm-button" (click)="confirmClearCheckedItems()">
+        <button class="modal-confirm-button" (click)="confirmClearAllItems()">
           ✓ Confirmer
         </button>
       </div>

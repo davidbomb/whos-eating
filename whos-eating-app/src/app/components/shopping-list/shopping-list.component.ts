@@ -75,17 +75,13 @@ export class ShoppingListComponent {
     this.showConfirmModal = false;
   }
 
-  confirmClearCheckedItems(): void {
-    this.shoppingItems = this.shoppingItems.filter(item => !item.checked);
+  confirmClearAllItems(): void {
+    this.shoppingItems = [];
     this.closeConfirmModal();
   }
 
   get uncheckedCount(): number {
     return this.shoppingItems.filter(item => !item.checked).length;
-  }
-
-  get allItemsUnchecked(): boolean {
-    return this.shoppingItems.every(item => !item.checked);
   }
 
   trackByItemId(index: number, item: ShoppingItem): number {

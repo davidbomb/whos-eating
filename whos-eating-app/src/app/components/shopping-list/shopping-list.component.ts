@@ -9,6 +9,8 @@ export interface ShoppingItem {
   id: number;
   name: string;
   checked: boolean;
+  showMagicStars?: boolean;
+  fadingOut?: boolean;
 }
 
 @Component({
@@ -75,7 +77,18 @@ export class ShoppingListComponent implements OnDestroy {
   }
 
   deleteItem(id: number): void {
-    this.shoppingItems = this.shoppingItems.filter(item => item.id !== id);
+    // Trouver l'item pour déclencher l'animation magique
+    const item = this.shoppingItems.find(i => i.id === id);
+    if (item) {
+      // Activer l'animation d'étoiles ET le fade out en même temps
+      item.showMagicStars = true;
+      item.fadingOut = true;
+
+      // Attendre la fin des deux animations (2s) avant de supprimer définitivement
+      setTimeout(() => {
+        this.shoppingItems = this.shoppingItems.filter(i => i.id !== id);
+      }, 2000);
+    }
   }
 
   openConfirmModal(): void {

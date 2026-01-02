@@ -213,6 +213,21 @@
   will-change: transform, opacity;
 }
 
+/* Animation de disparition de l'item */
+.shopping-item.fading-out {
+  animation: itemFadeOut 2s ease-out forwards;
+  animation-delay: 0.4s;
+}
+
+@keyframes itemFadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 /* Sceau de cire miniature */
 .shopping-item::before {
   content: '◆';
@@ -365,6 +380,131 @@
   box-shadow:
     0 6px 12px rgba(0, 0, 0, 0.4),
     0 0 20px rgba(139, 0, 0, 0.6);
+}
+
+/* ✨ ANIMATION MAGIQUE D'ÉTOILES ✨ */
+.magic-stars {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.star {
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0;
+  animation: magicSparkle 3s ease-in-out forwards;
+  filter: drop-shadow(0 0 3px rgba(212, 175, 55, 0.6));
+}
+
+/* Positions et délais différents pour chaque étoile */
+.star-1 {
+  top: 50%;
+  left: 50%;
+  animation-delay: 0s;
+}
+
+.star-2 {
+  top: 5%;
+  left: 20%;
+  animation-delay: 0.2s;
+}
+
+.star-3 {
+  top: 5%;
+  left: 95%;
+  animation-delay: 0.1s;
+}
+
+.star-4 {
+  top: 95%;
+  left: 70%;
+  animation-delay: 0.3s;
+}
+
+.star-5 {
+  top: 70%;
+  left: 2%;
+  animation-delay: 0.16s;
+}
+
+.star-6 {
+  top: 20%;
+  left: 5%;
+  animation-delay: 0.24s;
+}
+
+.star-7 {
+  top: 95%;
+  left: 95%;
+  animation-delay: 0.36s;
+}
+
+.star-8 {
+  top: 35%;
+  left: 98%;
+  animation-delay: 0.12s;
+}
+
+/* Animation de scintillement et de dispersion magique */
+@keyframes magicSparkle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  5% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  10% {
+    opacity: 0.8;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+  20% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1.3) ;
+  }
+  30% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(1.1) ;
+  }
+  40% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  50% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  60% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.7);
+  }
+  70% {
+    opacity: 0.9;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+  80% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  90% {
+    opacity: 0.4;
+    transform: translate(-50%, -50%) scale(0.4);
+  }
+  95% {
+    opacity: 0.2;
+    transform: translate(-50%, -50%) scale(0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.1);
+  }
 }
 
 /* État vide - Parchemin */

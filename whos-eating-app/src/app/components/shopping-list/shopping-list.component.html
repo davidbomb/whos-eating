@@ -28,6 +28,7 @@
       *ngFor="let item of shoppingItems; trackBy: trackByItemId"
       class="shopping-item"
       [class.checked]="item.checked"
+      [class.fading-out]="item.fadingOut"
       [@itemAnimation]
     >
       <div class="item-content" (click)="toggleItem(item)">
@@ -45,6 +46,18 @@
       >
         🪄️
       </button>
+
+      <!-- ✨ Animation d'étoiles magiques ✨ -->
+      <div class="magic-stars" *ngIf="item.showMagicStars">
+        <span class="star star-1">✨</span>
+        <span class="star star-2">✨</span>
+        <span class="star star-3">✨</span>
+        <span class="star star-4">✨</span>
+        <span class="star star-5">✨</span>
+        <span class="star star-6">✨</span>
+        <span class="star star-7">✨</span>
+        <span class="star star-8">✨</span>
+      </div>
     </div>
   </div>
 

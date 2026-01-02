@@ -1,4 +1,20 @@
 <div class="shopping-list-container" [class.dark-mode]="darkMode">
+  <!-- 🌀 Animation de Tornade Bleue Magique 🌀 -->
+  <div class="blue-tornado-overlay" *ngIf="showBlueTornado">
+    <div class="tornado-container">
+      <div class="tornado-spiral tornado-spiral-1">🌀</div>
+      <div class="tornado-spiral tornado-spiral-2">🌀</div>
+      <div class="tornado-spiral tornado-spiral-3">🌀</div>
+      <div class="tornado-spiral tornado-spiral-4">🌀</div>
+      <div class="tornado-spiral tornado-spiral-5">🌀</div>
+      <div class="tornado-magic">✨</div>
+      <div class="tornado-magic tornado-magic-2">✨</div>
+      <div class="tornado-magic tornado-magic-3">✨</div>
+      <div class="tornado-lightning">⚡</div>
+      <div class="tornado-lightning tornado-lightning-2">⚡</div>
+    </div>
+  </div>
+
   <div class="shopping-header">
     <h2>🍞 Victuailles à acheter</h2>
     <p class="subtitle">{{ uncheckedCount }} article(s) à acheter</p>

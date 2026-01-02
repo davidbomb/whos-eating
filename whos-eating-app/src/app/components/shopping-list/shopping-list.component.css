@@ -507,6 +507,205 @@
   }
 }
 
+/* 🌀 ANIMATION DE TORNADE BLEUE MAGIQUE 🌀 */
+.blue-tornado-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 999;
+  background: radial-gradient(circle, rgba(0, 100, 255, 0.1) 0%, transparent 70%);
+  animation: tornadoGlow 4s ease-in-out forwards;
+}
+
+@keyframes tornadoGlow {
+  0%, 100% {
+    background: radial-gradient(circle, rgba(0, 100, 255, 0.05) 0%, transparent 70%);
+  }
+  50% {
+    background: radial-gradient(circle, rgba(0, 100, 255, 0.2) 0%, transparent 70%);
+  }
+}
+
+.tornado-container {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  animation: tornadoSpin 4s ease-in-out forwards;
+}
+
+@keyframes tornadoSpin {
+  0% {
+    transform: scale(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2) rotate(720deg);
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(0.3) rotate(1440deg);
+    opacity: 0;
+  }
+}
+
+.tornado-spiral {
+  position: absolute;
+  font-size: 4rem;
+  color: #0066ff;
+  filter: drop-shadow(0 0 10px rgba(0, 100, 255, 0.8))
+          drop-shadow(0 0 20px rgba(0, 150, 255, 0.6))
+          drop-shadow(0 0 30px rgba(0, 200, 255, 0.4));
+  animation: spiralRotate 4s ease-in-out forwards;
+}
+
+@keyframes spiralRotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.5);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(1080deg) scale(1.5);
+    opacity: 0;
+  }
+}
+
+.tornado-spiral-1 {
+  top: 50%;
+  left: 50%;
+  animation-delay: 0s;
+}
+
+.tornado-spiral-2 {
+  top: 30%;
+  left: 50%;
+  animation-delay: 0.2s;
+  font-size: 3.5rem;
+}
+
+.tornado-spiral-3 {
+  top: 70%;
+  left: 50%;
+  animation-delay: 0.4s;
+  font-size: 3rem;
+}
+
+.tornado-spiral-4 {
+  top: 50%;
+  left: 30%;
+  animation-delay: 0.3s;
+  font-size: 3.2rem;
+}
+
+.tornado-spiral-5 {
+  top: 50%;
+  left: 70%;
+  animation-delay: 0.5s;
+  font-size: 3.8rem;
+}
+
+.tornado-magic {
+  position: absolute;
+  font-size: 2rem;
+  color: #00ccff;
+  filter: drop-shadow(0 0 8px rgba(0, 200, 255, 0.9));
+  animation: magicOrbit 4s ease-in-out forwards;
+}
+
+@keyframes magicOrbit {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg) translateX(0px) scale(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(720deg) translateX(150px) scale(1.2);
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(1440deg) translateX(200px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+.tornado-magic {
+  top: 50%;
+  left: 50%;
+  animation-delay: 0.1s;
+}
+
+.tornado-magic-2 {
+  animation-delay: 0.6s;
+}
+
+.tornado-magic-3 {
+  animation-delay: 1.2s;
+}
+
+.tornado-lightning {
+  position: absolute;
+  font-size: 2.5rem;
+  color: #4dd0ff;
+  filter: drop-shadow(0 0 12px rgba(77, 208, 255, 1));
+  animation: lightningFlash 4s ease-in-out forwards;
+}
+
+@keyframes lightningFlash {
+  0%, 100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  5%, 15%, 25%, 35%, 45% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+  10%, 20%, 30%, 40%, 50% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  55% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+.tornado-lightning {
+  top: 20%;
+  left: 50%;
+  animation-delay: 0.5s;
+}
+
+.tornado-lightning-2 {
+  top: 80%;
+  left: 50%;
+  animation-delay: 1s;
+}
+
 /* État vide - Parchemin */
 .empty-state {
   text-align: center;

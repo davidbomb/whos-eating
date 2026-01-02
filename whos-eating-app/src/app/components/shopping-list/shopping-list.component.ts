@@ -37,6 +37,7 @@ export class ShoppingListComponent implements OnDestroy {
   private nextId: number = 1;
   showConfirmModal: boolean = false;
   darkMode: boolean = false;
+  showBlueTornado: boolean = false;
   private themeSubscription?: Subscription;
 
   constructor(private themeService: ThemeService) {
@@ -100,6 +101,9 @@ export class ShoppingListComponent implements OnDestroy {
   }
 
   confirmClearAllItems(): void {
+    // Activer l'animation de tornade bleue
+    this.showBlueTornado = true;
+
     // Déclencher l'animation magique pour tous les items
     this.shoppingItems.forEach(item => {
       item.showMagicStars = true;
@@ -109,10 +113,11 @@ export class ShoppingListComponent implements OnDestroy {
     // Fermer la modale immédiatement pour voir les animations
     this.closeConfirmModal();
 
-    // Attendre la fin des animations (2s) avant de tout supprimer
+    // Attendre la fin de l'animation de tornade (4s) avant de tout supprimer
     setTimeout(() => {
       this.shoppingItems = [];
-    }, 2000);
+      this.showBlueTornado = false;
+    }, 4000);
   }
 
   get uncheckedCount(): number {

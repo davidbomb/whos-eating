@@ -15,6 +15,34 @@
     </div>
   </div>
 
+  <!-- ✨ Animation Globale de 8 Étoiles Magiques ✨ -->
+  <div class="global-magic-stars" *ngIf="showGlobalMagicStars">
+    <span class="star star-1"
+          [style.top.%]="globalStarPositions[0]?.top"
+          [style.left.%]="globalStarPositions[0]?.left">✨</span>
+    <span class="star star-2"
+          [style.top.%]="globalStarPositions[1]?.top"
+          [style.left.%]="globalStarPositions[1]?.left">✨</span>
+    <span class="star star-3"
+          [style.top.%]="globalStarPositions[2]?.top"
+          [style.left.%]="globalStarPositions[2]?.left">✨</span>
+    <span class="star star-4"
+          [style.top.%]="globalStarPositions[3]?.top"
+          [style.left.%]="globalStarPositions[3]?.left">✨</span>
+    <span class="star star-5"
+          [style.top.%]="globalStarPositions[4]?.top"
+          [style.left.%]="globalStarPositions[4]?.left">✨</span>
+    <span class="star star-6"
+          [style.top.%]="globalStarPositions[5]?.top"
+          [style.left.%]="globalStarPositions[5]?.left">✨</span>
+    <span class="star star-7"
+          [style.top.%]="globalStarPositions[6]?.top"
+          [style.left.%]="globalStarPositions[6]?.left">✨</span>
+    <span class="star star-8"
+          [style.top.%]="globalStarPositions[7]?.top"
+          [style.left.%]="globalStarPositions[7]?.left">✨</span>
+  </div>
+
   <div class="shopping-header">
     <h2>🍞 Victuailles à acheter</h2>
     <p class="subtitle">{{ uncheckedCount }} article(s) à acheter</p>
@@ -65,14 +93,30 @@
 
       <!-- ✨ Animation d'étoiles magiques ✨ -->
       <div class="magic-stars" *ngIf="item.showMagicStars">
-        <span class="star star-1">✨</span>
-        <span class="star star-2">✨</span>
-        <span class="star star-3">✨</span>
-        <span class="star star-4">✨</span>
-        <span class="star star-5">✨</span>
-        <span class="star star-6">✨</span>
-        <span class="star star-7">✨</span>
-        <span class="star star-8">✨</span>
+        <span class="star star-1"
+              [style.top.%]="item.randomStarPositions?.[0]?.top || 50"
+              [style.left.%]="item.randomStarPositions?.[0]?.left || 50">✨</span>
+        <span class="star star-2"
+              [style.top.%]="item.randomStarPositions?.[1]?.top || 5"
+              [style.left.%]="item.randomStarPositions?.[1]?.left || 20">✨</span>
+        <span class="star star-3"
+              [style.top.%]="item.randomStarPositions?.[2]?.top || 5"
+              [style.left.%]="item.randomStarPositions?.[2]?.left || 95">✨</span>
+        <span class="star star-4"
+              [style.top.%]="item.randomStarPositions?.[3]?.top || 95"
+              [style.left.%]="item.randomStarPositions?.[3]?.left || 70">✨</span>
+        <span class="star star-5"
+              [style.top.%]="item.randomStarPositions?.[4]?.top || 70"
+              [style.left.%]="item.randomStarPositions?.[4]?.left || 2">✨</span>
+        <span class="star star-6"
+              [style.top.%]="item.randomStarPositions?.[5]?.top || 20"
+              [style.left.%]="item.randomStarPositions?.[5]?.left || 5">✨</span>
+        <span class="star star-7"
+              [style.top.%]="item.randomStarPositions?.[6]?.top || 95"
+              [style.left.%]="item.randomStarPositions?.[6]?.left || 95">✨</span>
+        <span class="star star-8"
+              [style.top.%]="item.randomStarPositions?.[7]?.top || 35"
+              [style.left.%]="item.randomStarPositions?.[7]?.left || 98">✨</span>
       </div>
     </div>
   </div>

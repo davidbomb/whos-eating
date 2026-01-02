@@ -11,6 +11,7 @@ export interface ShoppingItem {
   checked: boolean;
   showMagicStars?: boolean;
   fadingOut?: boolean;
+  randomStarPositions?: {top: number, left: number}[];
 }
 
 @Component({
@@ -38,6 +39,8 @@ export class ShoppingListComponent implements OnDestroy {
   showConfirmModal: boolean = false;
   darkMode: boolean = false;
   showBlueTornado: boolean = false;
+  showGlobalMagicStars: boolean = false;
+  globalStarPositions: {top: number, left: number}[] = [];
   private themeSubscription?: Subscription;
 
   constructor(private themeService: ThemeService) {
@@ -104,9 +107,12 @@ export class ShoppingListComponent implements OnDestroy {
     // Activer l'animation de tornade bleue
     this.showBlueTornado = true;
 
-    // Déclencher l'animation magique pour tous les items
+    // Générer 8 positions aléatoires pour l'animation globale
+    this.globalStarPositions = this.generateRandomStarPositions();
+    this.showGlobalMagicStars = true;
+
+    // Déclencher uniquement le fade out pour tous les items (sans étoiles individuelles)
     this.shoppingItems.forEach(item => {
-      item.showMagicStars = true;
       item.fadingOut = true;
     });
 
@@ -117,7 +123,23 @@ export class ShoppingListComponent implements OnDestroy {
     setTimeout(() => {
       this.shoppingItems = [];
       this.showBlueTornado = false;
+      this.showGlobalMagicStars = false;
     }, 4000);
+  }
+
+  private generateRandomStarPositions(): {top: number, left: number}[] {
+    const positions = [];
+    // Position centrale
+    positions.push({ top: 50, left: 50 });
+
+    // 7 positions aléatoires en périphérie
+    for (let i = 0; i < 7; i++) {
+      positions.push({
+        top: Math.random() * 100,
+        left: Math.random() * 100
+      });
+    }
+    return positions;
   }
 
   get uncheckedCount(): number {

@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService, Participant } from './services/data.service';
+import { ThemeService } from './services/theme.service';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
 @Component({
@@ -34,7 +35,7 @@ export class AppComponent implements OnDestroy {
   showCandleParticles: boolean = false;
   showCandleShockwave: boolean = false;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private themeService: ThemeService) {
     // S'abonner aux changements en temps réel depuis Firebase
     this.dataService.participants$.subscribe(participants => {
       this.participants = participants;
@@ -56,6 +57,7 @@ export class AppComponent implements OnDestroy {
 
   toggleNightMode() {
     this.isNightMode = !this.isNightMode;
+    this.themeService.setNightMode(this.isNightMode);
   }
 
   getPlates(): Array<{top: number, left: number, transform: string}> {

@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
+import { ThemeService } from '../../services/theme.service';
+import { Subscription } from 'rxjs';
 
 export interface ShoppingItem {
   id: number;
@@ -27,11 +29,20 @@ export interface ShoppingItem {
     ])
   ]
 })
-export class ShoppingListComponent {
+export class ShoppingListComponent implements OnDestroy {
   newItem: string = '';
   shoppingItems: ShoppingItem[] = [];
   private nextId: number = 1;
   showConfirmModal: boolean = false;
+  darkMode: boolean = false;
+  private themeSubscription?: Subscription;
+
+  constructor(private themeService: ThemeService) {
+    // S'abonner au mode nuit du service
+    this.themeSubscription = this.themeService.nightMode$.subscribe(isNightMode => {
+      this.darkMode = isNightMode;
+    });
+  }
 
   addItem(): void {
     if (this.newItem.trim()) {
@@ -86,5 +97,11 @@ export class ShoppingListComponent {
 
   trackByItemId(index: number, item: ShoppingItem): number {
     return item.id;
+  }
+
+  ngOnDestroy(): void {
+    if (this.themeSubscription) {
+      this.themeSubscription.unsubscribe();
+    }
   }
 }

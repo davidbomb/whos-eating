@@ -19,6 +19,7 @@ export class ShoppingListComponent {
   newItem: string = '';
   shoppingItems: ShoppingItem[] = [];
   private nextId: number = 1;
+  showConfirmModal: boolean = false;
 
   addItem(): void {
     if (this.newItem.trim()) {
@@ -34,14 +35,34 @@ export class ShoppingListComponent {
 
   toggleItem(item: ShoppingItem): void {
     item.checked = !item.checked;
+    this.sortItems();
+  }
+
+  private sortItems(): void {
+    this.shoppingItems.sort((a, b) => {
+      // Les articles non cochés (false) passent avant les cochés (true)
+      if (a.checked === b.checked) {
+        return 0; // Garde l'ordre actuel si même statut
+      }
+      return a.checked ? 1 : -1; // Non cochés en premier
+    });
   }
 
   deleteItem(id: number): void {
     this.shoppingItems = this.shoppingItems.filter(item => item.id !== id);
   }
 
-  clearCheckedItems(): void {
+  openConfirmModal(): void {
+    this.showConfirmModal = true;
+  }
+
+  closeConfirmModal(): void {
+    this.showConfirmModal = false;
+  }
+
+  confirmClearCheckedItems(): void {
     this.shoppingItems = this.shoppingItems.filter(item => !item.checked);
+    this.closeConfirmModal();
   }
 
   get uncheckedCount(): number {

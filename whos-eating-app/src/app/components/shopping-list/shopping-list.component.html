@@ -54,11 +54,32 @@
 
   <div class="actions" *ngIf="shoppingItems.length > 0">
     <button
-      (click)="clearCheckedItems()"
+      (click)="openConfirmModal()"
       class="clear-button"
       [disabled]="allItemsUnchecked"
     >
       🧹 Nettoyer les articles cochés
     </button>
+  </div>
+
+  <!-- Modale de confirmation -->
+  <div class="modal-overlay" *ngIf="showConfirmModal" (click)="closeConfirmModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>⚠️ Confirmation Requise</h3>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer tous les articles cochés ?</p>
+        <p class="modal-warning">Cette action est irréversible !</p>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-cancel-button" (click)="closeConfirmModal()">
+          ❌ Annuler
+        </button>
+        <button class="modal-confirm-button" (click)="confirmClearCheckedItems()">
+          ✓ Confirmer
+        </button>
+      </div>
+    </div>
   </div>
 </div>

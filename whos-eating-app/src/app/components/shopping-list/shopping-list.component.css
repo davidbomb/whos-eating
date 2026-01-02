@@ -193,6 +193,7 @@
 /* 📋 LISTE DES ITEMS - PARCHEMIN 📋 */
 .items-list {
   margin-bottom: 20px;
+  position: relative;
 }
 
 .shopping-item {
@@ -205,8 +206,9 @@
   border: 4px solid #3d2817;
   border-left: 8px solid #d4af37;
   box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-  transition: all 0.3s ease;
+  transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   position: relative;
+  will-change: transform, opacity;
 }
 
 /* Sceau de cire miniature */
@@ -244,91 +246,36 @@
   left: -5%;
   top: 50%;
   width: 110%;
-  height: 5px;
+  height: 3px;
   background: linear-gradient(
     90deg,
     transparent 0%,
-    #6b0000 2%,
-    #8b0000 5%,
-    #b31010 25%,
+    #8b0000 3%,
     #c41515 50%,
-    #b31010 75%,
-    #8b0000 95%,
-    #6b0000 98%,
+    #8b0000 97%,
     transparent 100%
   );
-  transform: translateY(-50%) scaleX(0) rotate(-1deg);
+  transform: translateY(-50%) scaleX(0) rotate(-0.5deg);
   transform-origin: left;
   animation: drawLine 1s ease-out forwards;
-  /* Effet de ligne organique tracée à la main */
-  border-radius: 45% 55% 50% 50% / 60% 40% 60% 40%;
-  mask-image: radial-gradient(ellipse 102% 45% at 0% 50%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 55% at 5% 48%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 50% at 10% 52%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 48% at 15% 49%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 53% at 20% 51%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 47% at 25% 48%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 52% at 30% 50%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 49% at 35% 52%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 54% at 40% 48%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 46% at 45% 51%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 51% at 50% 49%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 48% at 55% 52%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 53% at 60% 48%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 47% at 65% 50%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 52% at 70% 49%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 49% at 75% 51%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 54% at 80% 48%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 46% at 85% 52%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 51% at 90% 49%, black 0%, black 98%, transparent 100%),
-               radial-gradient(ellipse 102% 48% at 95% 50%, black 0%, black 97%, transparent 100%),
-               radial-gradient(ellipse 102% 50% at 100% 50%, black 0%, black 98%, transparent 100%);
-  mask-composite: intersect;
-  -webkit-mask-image: radial-gradient(ellipse 102% 45% at 0% 50%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 55% at 5% 48%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 50% at 10% 52%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 48% at 15% 49%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 53% at 20% 51%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 47% at 25% 48%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 52% at 30% 50%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 49% at 35% 52%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 54% at 40% 48%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 46% at 45% 51%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 51% at 50% 49%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 48% at 55% 52%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 53% at 60% 48%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 47% at 65% 50%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 52% at 70% 49%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 49% at 75% 51%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 54% at 80% 48%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 46% at 85% 52%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 51% at 90% 49%, black 0%, black 98%, transparent 100%),
-                      radial-gradient(ellipse 102% 48% at 95% 50%, black 0%, black 97%, transparent 100%),
-                      radial-gradient(ellipse 102% 50% at 100% 50%, black 0%, black 98%, transparent 100%);
-  -webkit-mask-composite: source-in;
+  border-radius: 50%;
   box-shadow:
-    0 2px 4px rgba(139, 0, 0, 0.6),
-    0 -1px 2px rgba(139, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255, 100, 100, 0.2),
-    inset 0 -1px 2px rgba(80, 0, 0, 0.3);
-  opacity: 1;
-  filter: blur(0.3px);
+    0 1px 2px rgba(139, 0, 0, 0.5),
+    0 -1px 1px rgba(139, 0, 0, 0.3);
+  opacity: 0.95;
 }
 
 @keyframes drawLine {
   0% {
-    transform: translateY(-50%) scaleX(0) rotate(-1deg);
+    transform: translateY(-50%) scaleX(0) rotate(-0.5deg);
     opacity: 0;
   }
-  5% {
-    opacity: 0.7;
-  }
-  15% {
-    opacity: 1;
+  10% {
+    opacity: 0.8;
   }
   100% {
     transform: translateY(-50%) scaleX(1) rotate(-0.5deg);
-    opacity: 1;
+    opacity: 0.95;
   }
 }
 
@@ -594,16 +541,18 @@
 
 .modal-header {
   text-align: center;
+  margin-top: 15px;
   margin-bottom: 25px;
   padding-bottom: 20px;
   border-bottom: 3px double #3d2817;
   position: relative;
+  display: flex;
 }
 
 .modal-header h3 {
   margin: 0;
-  font-size: 1.8em;
-  font-weight: 700;
+  font-size: 1.5em;
+  font-weight: 600;
   color: #8b0000;
   font-family: 'MedievalSharp', serif;
   text-transform: uppercase;

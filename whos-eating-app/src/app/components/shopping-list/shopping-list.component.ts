@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { trigger, transition, style, animate } from '@angular/animations';
 
 export interface ShoppingItem {
   id: number;
@@ -13,7 +14,18 @@ export interface ShoppingItem {
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './shopping-list.component.html',
-  styleUrl: './shopping-list.component.css'
+  styleUrl: './shopping-list.component.css',
+  animations: [
+    trigger('itemAnimation', [
+      transition(':enter', [
+        style({ opacity: 0, transform: 'translateX(-20px)' }),
+        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0)' }))
+      ]),
+      transition('* => *', [
+        animate('500ms ease-in-out')
+      ])
+    ])
+  ]
 })
 export class ShoppingListComponent {
   newItem: string = '';
@@ -35,7 +47,10 @@ export class ShoppingListComponent {
 
   toggleItem(item: ShoppingItem): void {
     item.checked = !item.checked;
-    this.sortItems();
+    // Attendre la fin de l'animation de barrage (1s) avant de déplacer l'item
+    setTimeout(() => {
+      this.sortItems();
+    }, 1000);
   }
 
   private sortItems(): void {
@@ -71,5 +86,9 @@ export class ShoppingListComponent {
 
   get allItemsUnchecked(): boolean {
     return this.shoppingItems.every(item => !item.checked);
+  }
+
+  trackByItemId(index: number, item: ShoppingItem): number {
+    return item.id;
   }
 }

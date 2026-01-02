@@ -1,6 +1,6 @@
 <div class="shopping-list-container">
   <div class="shopping-header">
-    <h2>📝 Liste de Courses</h2>
+    <h2>🍞 Victuailles à acheter</h2>
     <p class="subtitle">{{ uncheckedCount }} article(s) à acheter</p>
   </div>
 
@@ -25,9 +25,10 @@
 
   <div class="items-list" *ngIf="shoppingItems.length > 0">
     <div
-      *ngFor="let item of shoppingItems"
+      *ngFor="let item of shoppingItems; trackBy: trackByItemId"
       class="shopping-item"
       [class.checked]="item.checked"
+      [@itemAnimation]
     >
       <div class="item-content" (click)="toggleItem(item)">
         <div class="checkbox">
@@ -58,7 +59,7 @@
       class="clear-button"
       [disabled]="allItemsUnchecked"
     >
-      🧹 Nettoyer les articles cochés
+      🧙🏻‍♂️ Nettoyer les articles cochés
     </button>
   </div>
 
@@ -66,11 +67,13 @@
   <div class="modal-overlay" *ngIf="showConfirmModal" (click)="closeConfirmModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <div class="modal-header">
-        <h3>⚠️ Confirmation Requise</h3>
+        <span style="font-size: 2rem">🔮</span>
+        <h3> Confirmation Requise </h3>
+        <span style="font-size: 2rem">🔮</span>
+
       </div>
       <div class="modal-body">
-        <p>Êtes-vous sûr de vouloir supprimer tous les articles cochés ?</p>
-        <p class="modal-warning">Cette action est irréversible !</p>
+        <p>Cette magie noire est irréversible</p>
       </div>
       <div class="modal-actions">
         <button class="modal-cancel-button" (click)="closeConfirmModal()">

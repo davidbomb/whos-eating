@@ -100,8 +100,19 @@ export class ShoppingListComponent implements OnDestroy {
   }
 
   confirmClearAllItems(): void {
-    this.shoppingItems = [];
+    // Déclencher l'animation magique pour tous les items
+    this.shoppingItems.forEach(item => {
+      item.showMagicStars = true;
+      item.fadingOut = true;
+    });
+
+    // Fermer la modale immédiatement pour voir les animations
     this.closeConfirmModal();
+
+    // Attendre la fin des animations (2s) avant de tout supprimer
+    setTimeout(() => {
+      this.shoppingItems = [];
+    }, 2000);
   }
 
   get uncheckedCount(): number {

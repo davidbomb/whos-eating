@@ -680,13 +680,6 @@
   animation-delay: 1.2s;
 }
 
-.tornado-lightning {
-  position: absolute;
-  font-size: 2.5rem;
-  color: #4dd0ff;
-  filter: drop-shadow(0 0 12px rgba(77, 208, 255, 1));
-  animation: lightningFlash 4s ease-in-out forwards;
-}
 
 @keyframes lightningFlash {
   0%, 100% {
@@ -705,18 +698,6 @@
     opacity: 0;
     transform: translate(-50%, -50%) scale(0);
   }
-}
-
-.tornado-lightning {
-  top: 20%;
-  left: 50%;
-  animation-delay: 0.5s;
-}
-
-.tornado-lightning-2 {
-  top: 80%;
-  left: 50%;
-  animation-delay: 1s;
 }
 
 /* État vide - Parchemin */

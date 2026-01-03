@@ -19,7 +19,7 @@
   --night-bg-dark: #1f1409;
   --night-parchment: #3d2817;
   --night-parchment-dark: #2d1f12;
-  --night-gold: #ffb347;
+  --night-gold: #fb992a;
   --night-silver: #d4a574;
   --night-blue: #b85618;
   --night-orange: #df5a27;
@@ -2048,7 +2048,7 @@
 /* 🌙 TOGGLE JOUR/NUIT 🌙 */
 .night-mode-toggle {
   position: absolute !important;
-  top: -60px !important;
+  top: -70px !important;
   right: -8px !important;
   display: flex;
   align-items: center;
@@ -2058,7 +2058,7 @@
   background: #FFF8E1;
   padding: 4px 6px;
   border-radius: 4px;
-  border: 2px solid var(--medieval-gold);
+  border: 5px solid var(--medieval-gold);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }
@@ -2435,9 +2435,9 @@
 
 /* 🛒 BOUTON LISTE DE COURSES */
 .shopping-list-toggle {
-  visibility: hidden;
+  /*visibility: hidden;*/
   position: absolute !important;
-  top: -68px !important;
+  top: -75px !important;
   left: -8px !important;
   display: flex;
   align-items: center;
@@ -2447,7 +2447,7 @@
   background: #FFF8E1;;
   padding: 8px 8px;
   border-radius: 4px;
-  border: 2px solid var(--medieval-gold);
+  border: 5px solid var(--medieval-gold);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
 }

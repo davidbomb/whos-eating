@@ -3,16 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { ThemeService } from '../../services/theme.service';
+import { DataService, ShoppingItem } from '../../services/data.service';
 import { Subscription } from 'rxjs';
-
-export interface ShoppingItem {
-  id: number;
-  name: string;
-  checked: boolean;
-  showMagicStars?: boolean;
-  fadingOut?: boolean;
-  randomStarPositions?: {top: number, left: number}[];
-}
 
 @Component({
   selector: 'app-shopping-list',
@@ -42,11 +34,26 @@ export class ShoppingListComponent implements OnDestroy {
   showGlobalMagicStars: boolean = false;
   globalStarPositions: {top: number, left: number}[] = [];
   private themeSubscription?: Subscription;
+  private shoppingListSubscription?: Subscription;
 
-  constructor(private themeService: ThemeService) {
+  constructor(
+    private themeService: ThemeService,
+    private dataService: DataService
+  ) {
     // S'abonner au mode nuit du service
     this.themeSubscription = this.themeService.nightMode$.subscribe(isNightMode => {
       this.darkMode = isNightMode;
+    });
+
+    // S'abonner à la liste de courses depuis Firebase
+    this.shoppingListSubscription = this.dataService.shoppingList$.subscribe(items => {
+      console.log('📋 Liste de courses reçue de Firebase:', items);
+      if (items && items.length > 0) {
+        this.shoppingItems = items;
+        // Mettre à jour nextId pour être supérieur au plus grand ID existant
+        const maxId = Math.max(...items.map(item => item.id), 0);
+        this.nextId = maxId + 1;
+      }
     });
   }
 
@@ -59,6 +66,9 @@ export class ShoppingListComponent implements OnDestroy {
       };
       this.shoppingItems.push(item);
       this.newItem = '';
+
+      // Sauvegarder dans Firebase
+      this.dataService.saveShoppingList(this.shoppingItems);
     }
   }
 
@@ -67,6 +77,8 @@ export class ShoppingListComponent implements OnDestroy {
     // Attendre la fin de l'animation de barrage (1s) avant de déplacer l'item
     setTimeout(() => {
       this.sortItems();
+      // Sauvegarder dans Firebase après le tri
+      this.dataService.saveShoppingList(this.shoppingItems);
     }, 1000);
   }
 
@@ -91,6 +103,8 @@ export class ShoppingListComponent implements OnDestroy {
       // Attendre la fin des deux animations (2s) avant de supprimer définitivement
       setTimeout(() => {
         this.shoppingItems = this.shoppingItems.filter(i => i.id !== id);
+        // Sauvegarder dans Firebase après suppression
+        this.dataService.saveShoppingList(this.shoppingItems);
       }, 2000);
     }
   }
@@ -124,6 +138,8 @@ export class ShoppingListComponent implements OnDestroy {
       this.shoppingItems = [];
       this.showBlueTornado = false;
       this.showGlobalMagicStars = false;
+      // Vider la liste dans Firebase
+      this.dataService.clearShoppingList();
     }, 4000);
   }
 
@@ -151,8 +167,12 @@ export class ShoppingListComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
+    // Se désabonner pour éviter les fuites mémoire
     if (this.themeSubscription) {
       this.themeSubscription.unsubscribe();
+    }
+    if (this.shoppingListSubscription) {
+      this.shoppingListSubscription.unsubscribe();
     }
   }
 }

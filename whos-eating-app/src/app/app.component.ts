@@ -1,7 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DataService, Participant } from './services/data.service';
+import { DataService, Participant, MealType } from './services/data.service';
 import { ThemeService } from './services/theme.service';
 import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
@@ -21,7 +21,8 @@ export class AppComponent implements OnDestroy {
   showShoppingList: boolean = false;
 
   familyMembers = ['Papa', 'Maman', 'David', 'Apo', 'Clovis', 'Julien'];
-  participants: Participant[] = [];
+  lunchParticipants: Participant[] = [];
+  dinnerParticipants: Participant[] = [];
   guestName: string = '';
   selectedMember: string = '';
   showGuestForm: boolean = false;
@@ -36,9 +37,13 @@ export class AppComponent implements OnDestroy {
   showCandleShockwave: boolean = false;
 
   constructor(private dataService: DataService, private themeService: ThemeService) {
-    // S'abonner aux changements en temps réel depuis Firebase
-    this.dataService.participants$.subscribe(participants => {
-      this.participants = participants;
+    // S'abonner aux changements en temps réel depuis Firebase pour les deux types de repas
+    this.dataService.lunchParticipants$.subscribe(participants => {
+      this.lunchParticipants = participants;
+    });
+
+    this.dataService.dinnerParticipants$.subscribe(participants => {
+      this.dinnerParticipants = participants;
     });
   }
 
@@ -55,9 +60,21 @@ export class AppComponent implements OnDestroy {
     return this.isNightMode ? 'Qui Mange Ce Soir ?' : 'Qui Mange Ce Midi ?';
   }
 
+  get currentMealType(): MealType {
+    return this.isNightMode ? 'dinner' : 'lunch';
+  }
+
+  get participants(): Participant[] {
+    return this.isNightMode ? this.dinnerParticipants : this.lunchParticipants;
+  }
+
   toggleNightMode() {
     this.isNightMode = !this.isNightMode;
     this.themeService.setNightMode(this.isNightMode);
+  }
+
+  toggleShoppingList() {
+    this.showShoppingList = !this.showShoppingList;
   }
 
   getPlates(): Array<{top: number, left: number, transform: string}> {
@@ -103,7 +120,9 @@ export class AppComponent implements OnDestroy {
         name: member,
         isGuest: false
       }];
-      this.dataService.saveParticipants(newParticipants);
+      this.dataService.saveParticipants(newParticipants, this.currentMealType);
+    } else {
+      console.log('⚠️ Membre déjà enregistré');
     }
   }
 
@@ -112,7 +131,7 @@ export class AppComponent implements OnDestroy {
     const newParticipants = this.participants.filter(
       p => !(p.name === member && !p.isGuest) && p.addedBy !== member
     );
-    this.dataService.saveParticipants(newParticipants);
+    this.dataService.saveParticipants(newParticipants, this.currentMealType);
   }
 
   addGuest(addedBy: string) {
@@ -125,13 +144,13 @@ export class AppComponent implements OnDestroy {
       this.guestName = '';
       this.showGuestForm = false;
       this.selectedMember = '';
-      this.dataService.saveParticipants(newParticipants);
+      this.dataService.saveParticipants(newParticipants, this.currentMealType);
     }
   }
 
   removeParticipant(participant: Participant) {
     const newParticipants = this.participants.filter(p => p !== participant);
-    this.dataService.saveParticipants(newParticipants);
+    this.dataService.saveParticipants(newParticipants, this.currentMealType);
   }
 
   openGuestForm(member: string) {
@@ -146,8 +165,8 @@ export class AppComponent implements OnDestroy {
   }
 
   resetDay() {
-    // Réinitialiser dans Firebase
-    this.dataService.resetDay();
+    // Réinitialiser dans Firebase pour le type de repas actuel
+    this.dataService.resetDay(this.currentMealType);
   }
 
   // 🕯️ Easter Egg - Bougie Décorative
@@ -256,17 +275,9 @@ export class AppComponent implements OnDestroy {
     }
   }
 
-  toggleShoppingList(): void {
-    this.showShoppingList = !this.showShoppingList;
-  }
-
   ngOnDestroy() {
-    this.stopEasterEggMusic();
     if (this.easterEggAudio) {
-      // Nettoyer les listeners
       this.easterEggAudio.pause();
-      this.easterEggAudio.src = '';
-      this.easterEggAudio.load();
       this.easterEggAudio = undefined;
     }
   }

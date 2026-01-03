@@ -2436,6 +2436,7 @@
 /* 🛒 BOUTON LISTE DE COURSES */
 .shopping-list-toggle {
   /*visibility: hidden;*/
+  opacity: 0;
   position: absolute !important;
   top: -75px !important;
   left: -8px !important;

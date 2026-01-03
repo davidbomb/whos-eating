@@ -12,7 +12,6 @@ import { ShoppingListComponent } from './components/shopping-list/shopping-list.
   styleUrl: './app.component.css'
 })
 export class AppComponent implements OnDestroy {
-  title = 'Qui Mange Ce Midi ?';
 
   // Mode jour/nuit
   isNightMode: boolean = false;

@@ -1,0 +1,160 @@
+<div class="shopping-list-container" [class.dark-mode]="darkMode">
+  <!-- 🌀 Animation de Tornade Bleue Magique 🌀 -->
+  <div class="blue-tornado-overlay" *ngIf="showBlueTornado">
+    <div class="tornado-container">
+      <div class="tornado-spiral tornado-spiral-1">🌀</div>
+      <div class="tornado-spiral tornado-spiral-2">🌀</div>
+      <div class="tornado-spiral tornado-spiral-3">🌀</div>
+      <div class="tornado-spiral tornado-spiral-4">🌀</div>
+      <div class="tornado-spiral tornado-spiral-5">🌀</div>
+      <div class="tornado-magic">✨</div>
+      <div class="tornado-magic tornado-magic-2">✨</div>
+      <div class="tornado-magic tornado-magic-3">✨</div>
+      <div class="tornado-lightning">⚡</div>
+      <div class="tornado-lightning tornado-lightning-2">⚡</div>
+    </div>
+  </div>
+
+  <!-- ✨ Animation Globale de 8 Étoiles Magiques ✨ -->
+  <div class="global-magic-stars" *ngIf="showGlobalMagicStars">
+    <span class="star star-1"
+          [style.top.%]="globalStarPositions[0]?.top"
+          [style.left.%]="globalStarPositions[0]?.left">✨</span>
+    <span class="star star-2"
+          [style.top.%]="globalStarPositions[1]?.top"
+          [style.left.%]="globalStarPositions[1]?.left">✨</span>
+    <span class="star star-3"
+          [style.top.%]="globalStarPositions[2]?.top"
+          [style.left.%]="globalStarPositions[2]?.left">✨</span>
+    <span class="star star-4"
+          [style.top.%]="globalStarPositions[3]?.top"
+          [style.left.%]="globalStarPositions[3]?.left">✨</span>
+    <span class="star star-5"
+          [style.top.%]="globalStarPositions[4]?.top"
+          [style.left.%]="globalStarPositions[4]?.left">✨</span>
+    <span class="star star-6"
+          [style.top.%]="globalStarPositions[5]?.top"
+          [style.left.%]="globalStarPositions[5]?.left">✨</span>
+    <span class="star star-7"
+          [style.top.%]="globalStarPositions[6]?.top"
+          [style.left.%]="globalStarPositions[6]?.left">✨</span>
+    <span class="star star-8"
+          [style.top.%]="globalStarPositions[7]?.top"
+          [style.left.%]="globalStarPositions[7]?.left">✨</span>
+  </div>
+
+  <div class="shopping-header">
+    <h2>🍞 Victuailles à acheter</h2>
+    <p class="subtitle">{{ uncheckedCount }} article(s) à acheter</p>
+  </div>
+
+  <div class="add-item-section">
+    <div class="input-group">
+      <input
+        type="text"
+        [(ngModel)]="newItem"
+        placeholder="Ajouter un ingrédient..."
+        class="item-input"
+        (keyup.enter)="addItem()"
+      />
+      <button
+        (click)="addItem()"
+        class="add-button"
+        [disabled]="!newItem.trim()"
+      >
+        ➕ Ajouter
+      </button>
+    </div>
+  </div>
+
+  <div class="items-list" *ngIf="shoppingItems.length > 0">
+    <div
+      *ngFor="let item of shoppingItems; trackBy: trackByItemId"
+      class="shopping-item"
+      [class.checked]="item.checked"
+      [class.fading-out]="item.fadingOut"
+      [@itemAnimation]
+    >
+      <div class="item-content" (click)="toggleItem(item)">
+        <div class="checkbox">
+          <span *ngIf="item.checked">✓</span>
+        </div>
+        <div class="item-details">
+          <span class="item-name">{{ item.name }}</span>
+        </div>
+      </div>
+      <button
+        (click)="deleteItem(item.id)"
+        class="delete-button"
+        title="Supprimer"
+      >
+        🪄️
+      </button>
+
+      <!-- ✨ Animation d'étoiles magiques ✨ -->
+      <div class="magic-stars" *ngIf="item.showMagicStars">
+        <span class="star star-1"
+              [style.top.%]="item.randomStarPositions?.[0]?.top || 50"
+              [style.left.%]="item.randomStarPositions?.[0]?.left || 50">✨</span>
+        <span class="star star-2"
+              [style.top.%]="item.randomStarPositions?.[1]?.top || 5"
+              [style.left.%]="item.randomStarPositions?.[1]?.left || 20">✨</span>
+        <span class="star star-3"
+              [style.top.%]="item.randomStarPositions?.[2]?.top || 5"
+              [style.left.%]="item.randomStarPositions?.[2]?.left || 95">✨</span>
+        <span class="star star-4"
+              [style.top.%]="item.randomStarPositions?.[3]?.top || 95"
+              [style.left.%]="item.randomStarPositions?.[3]?.left || 70">✨</span>
+        <span class="star star-5"
+              [style.top.%]="item.randomStarPositions?.[4]?.top || 70"
+              [style.left.%]="item.randomStarPositions?.[4]?.left || 2">✨</span>
+        <span class="star star-6"
+              [style.top.%]="item.randomStarPositions?.[5]?.top || 20"
+              [style.left.%]="item.randomStarPositions?.[5]?.left || 5">✨</span>
+        <span class="star star-7"
+              [style.top.%]="item.randomStarPositions?.[6]?.top || 95"
+              [style.left.%]="item.randomStarPositions?.[6]?.left || 95">✨</span>
+        <span class="star star-8"
+              [style.top.%]="item.randomStarPositions?.[7]?.top || 35"
+              [style.left.%]="item.randomStarPositions?.[7]?.left || 98">✨</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="shoppingItems.length === 0">
+    <p>Aucun article dans la liste</p>
+    <p class="empty-subtitle">Ajoutez votre premier ingrédient !</p>
+  </div>
+
+  <div class="actions" *ngIf="shoppingItems.length > 0">
+    <button
+      (click)="openConfirmModal()"
+      class="clear-button"
+    >
+      🧙🏻‍ Vider toute la liste
+    </button>
+  </div>
+
+  <!-- Modale de confirmation -->
+  <div class="modal-overlay" *ngIf="showConfirmModal" (click)="closeConfirmModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <span style="font-size: 2rem">🔮</span>
+        <h3>Confirmation Requise</h3>
+        <span style="font-size: 2rem">🔮</span>
+      </div>
+      <div class="modal-body">
+        <p>Êtes-vous sûr de vouloir supprimer TOUS les articles de la liste ?</p>
+        <p class="modal-warning">Cette magie noire est irréversible !</p>
+      </div>
+      <div class="modal-actions">
+        <button class="modal-cancel-button" (click)="closeConfirmModal()">
+          ❌ Annuler
+        </button>
+        <button class="modal-confirm-button" (click)="confirmClearAllItems()">
+          ✓ Confirmer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

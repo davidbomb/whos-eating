@@ -2,10 +2,12 @@ import { Component, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DataService, Participant } from './services/data.service';
+import { ThemeService } from './services/theme.service';
+import { ShoppingListComponent } from './components/shopping-list/shopping-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ShoppingListComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -14,6 +16,9 @@ export class AppComponent implements OnDestroy {
 
   // Mode jour/nuit
   isNightMode: boolean = false;
+
+  // Navigation
+  showShoppingList: boolean = false;
 
   familyMembers = ['Papa', 'Maman', 'David', 'Apo', 'Clovis', 'Julien'];
   participants: Participant[] = [];
@@ -30,7 +35,7 @@ export class AppComponent implements OnDestroy {
   showCandleParticles: boolean = false;
   showCandleShockwave: boolean = false;
 
-  constructor(private dataService: DataService) {
+  constructor(private dataService: DataService, private themeService: ThemeService) {
     // S'abonner aux changements en temps réel depuis Firebase
     this.dataService.participants$.subscribe(participants => {
       this.participants = participants;
@@ -52,6 +57,7 @@ export class AppComponent implements OnDestroy {
 
   toggleNightMode() {
     this.isNightMode = !this.isNightMode;
+    this.themeService.setNightMode(this.isNightMode);
   }
 
   getPlates(): Array<{top: number, left: number, transform: string}> {
@@ -248,6 +254,10 @@ export class AppComponent implements OnDestroy {
       this.easterEggAudio.currentTime = 0; // Remettre au début
       console.log('🎵 Musique arrêtée');
     }
+  }
+
+  toggleShoppingList(): void {
+    this.showShoppingList = !this.showShoppingList;
   }
 
   ngOnDestroy() {

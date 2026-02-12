@@ -242,7 +242,7 @@
   font-weight: 700;
   text-transform: capitalize;
   text-shadow:
-    2px 2px 0px rgba(139, 69, 19, 0.3),
+    1px 1px 0px rgba(139, 69, 19, 0.3),
     -1px -1px 0px rgba(255, 255, 255, 0.5);
   font-style: italic;
   font-family: 'MedievalSharp', serif;
@@ -1159,7 +1159,7 @@
 }
 
 /* Zone critique 351-400px - Ajustement optimal */
-@media screen and (min-width: 351px) and (max-width: 400px) {
+@media screen and (min-width: 351px) and (max-width: 499px) {
   .container {
     padding: 10px;
   }
@@ -1171,10 +1171,12 @@
 
   /* Titre bien dimensionné pour cette zone */
   .title {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     letter-spacing: 1.5px;
     line-height: 1.4;
-    padding-top: 2.3rem;
+    padding-top: 2rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
 
   /* Emojis du titre proportionnels */
@@ -2085,7 +2087,6 @@
   height: 18px;
   background: linear-gradient(135deg, #f4d175 0%, #ffd16f 100%);
   border-radius: 9px;
-  border: 1.5px solid var(--medieval-brown);
   transition: all 0.4s ease;
 }
 
@@ -2436,7 +2437,6 @@
 /* 🛒 BOUTON LISTE DE COURSES */
 .shopping-list-toggle {
   /*visibility: hidden;*/
-  opacity: 0;
   position: absolute !important;
   top: -75px !important;
   left: -8px !important;
